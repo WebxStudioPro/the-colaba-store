@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Colaba Store | Royal Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 🏛️ THEME INJECTED: ULTIMATE ART DECO --- */
+        :root {
+            --bg-deep: #080B10;
+            --bg-surface: #111620;
+            --bg-glass: rgba(17, 22, 32, 0.85);
+            --text-ivory: #EAE0D5;
+            --text-gold-mute: #B49B74;
+            --gold-rich: #CBA155;
+            --gold-light: #FBD28B;
+            --gold-dark: #AA823C;
+            --gold-liquid: linear-gradient(135deg, #AA823C 0%, #CBA155 50%, #AA823C 100%);
+            --gold-shine: linear-gradient(45deg, #AA823C, #FBD28B, #AA823C);
+            --shadow-soft: 0 10px 30px -10px rgba(0,0,0,0.5);
+            --shadow-deep: 0 20px 40px -15px rgba(0,0,0,0.7);
+            --gold-glow: 0 0 20px rgba(203, 161, 85, 0.2);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Josefin Sans', sans-serif;
+            background-color: var(--bg-deep);
+            background-image: linear-gradient(rgba(8,11,16,0.97), rgba(8,11,16,0.97)), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23CBA155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            color: var(--text-ivory); margin: 0; padding-bottom: 120px; letter-spacing: 0.3px;
+        }
+
+        /* HEADER */
+        .header {
+            padding: 18px 25px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid rgba(203, 161, 85, 0.3);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow-soft);
+        }
+        .brand { 
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 22px; font-weight: 900; 
+            background: var(--gold-shine); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        
+        /* BANNER */
+        .banner-container { padding: 25px 20px; }
+        .banner {
+            width: 100%; height: 220px;
+            background-image: url('https://images.unsplash.com/photo-1550332781-0891793997a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+            background-size: cover; background-position: center;
+            border-radius: 16px;
+            display: flex; align-items: flex-end; padding: 30px;
+            position: relative; overflow: hidden;
+            border: 1px solid rgba(203, 161, 85, 0.4);
+            box-shadow: var(--shadow-deep);
+        }
+        .banner::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, #080B10 10%, transparent 80%); }
+        
+        .banner-box { position: relative; z-index: 2; padding:0; border:none; background:none; backdrop-filter:none; text-align: left; }
+        .banner h2 { 
+            font-family: 'Cinzel Decorative', cursive; 
+            margin: 0; font-size: 28px; color: var(--gold-light); 
+            text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); font-style: normal;
+        }
+        .banner p { margin: 8px 0 0; font-size: 14px; color: var(--text-ivory); font-weight: 600; opacity: 0.9; text-transform: none; letter-spacing: 0.5px; }
+
+        /* SEARCH */
+        .search-box { padding: 0 20px 15px; }
+        .search-input {
+            width: 100%; background: rgba(17, 22, 32, 0.6); 
+            border: 1px solid rgba(203, 161, 85, 0.3);
+            padding: 16px 20px; border-radius: 12px; color: var(--text-ivory);
+            font-family: inherit; font-size: 15px; outline: none; transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .search-input:focus { border-color: var(--gold-rich); background: var(--bg-surface); }
+
+        /* CHIPS */
+        .cat-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 5px 20px 25px; scrollbar-width: none; }
+        .chip {
+            background: rgba(17, 22, 32, 0.5); color: var(--gold-rich); padding: 10px 24px;
+            border-radius: 50px; font-size: 12px; font-weight: 700; white-space: nowrap;
+            border: 1px solid rgba(203, 161, 85, 0.5); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .chip.active { 
+            background: var(--gold-liquid); color: #080B10; border-color: transparent; 
+            transform: translateY(-2px); box-shadow: 0 5px 15px rgba(203, 161, 85, 0.4); 
+        }
+
+        /* GRID */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 20px; }
+        .card {
+            background: var(--bg-surface); border-radius: 16px; overflow: hidden;
+            border: 1px solid rgba(203, 161, 85, 0.2); position: relative; 
+            transition: transform 0.2s; box-shadow: var(--shadow-soft);
+        }
+        .card:hover { border-color: var(--gold-rich); transform: translateY(-5px); box-shadow: var(--gold-glow); }
+        .card:active { transform: scale(0.98); }
+
+        .img-box { width: 100%; height: 170px; overflow: hidden; background: #05070a; position: relative; border-bottom: 1px solid rgba(203, 161, 85, 0.1); }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+
+        .info { padding: 15px; position: relative; z-index: 2; text-align: left; }
+        .name { 
+            font-family: 'Cinzel Decorative', cursive; font-size: 13px; font-weight: 700; 
+            margin-bottom: 8px; color: var(--text-ivory); height: 36px; overflow: hidden; 
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; letter-spacing: 0.5px;
+        }
+        
+        .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; justify-content: flex-start; }
+        .curr-price { font-size: 18px; font-weight: 800; color: var(--gold-rich); }
+        .old-price { font-size: 12px; text-decoration: line-through; color: var(--text-gold-mute); opacity: 0.8; }
+
+        /* LIQUID GOLD BUTTONS */
+        .btn-add {
+            width: 100%; background: var(--gold-liquid); color: #080B10; border: none;
+            padding: 12px; border-radius: 8px; font-weight: 800; font-size: 12px;
+            cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(170, 130, 60, 0.3);
+        }
+        .stepper {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(8, 11, 16, 0.5); border-radius: 8px; padding: 4px; 
+            border: 1px solid var(--gold-dark);
+        }
+        .step-btn {
+            background: var(--gold-liquid); border: none; color: #080B10;
+            width: 32px; height: 32px; font-size: 18px; font-weight: bold; border-radius: 6px;
+        }
+        .step-count { color: var(--text-ivory); }
+        
+        .badge-off {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--gold-rich); color: #080B10;
+            font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 4px;
+            z-index: 10; letter-spacing: 1px;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 60px; padding: 50px 25px 150px; 
+            background: #05070A; border-top: 3px solid var(--gold-dark);
+            text-align: center; position: relative;
+        }
+        .footer::before {
+            content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 30px; background: var(--gold-liquid);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+        .f-brand { font-family: 'Cinzel Decorative', cursive; font-size: 26px; color: var(--gold-rich); margin-bottom: 15px; font-style: normal; }
+        .contact-box {
+            background: rgba(17, 22, 32, 0.8); border: 1px solid var(--gold-rich); padding: 25px;
+            border-radius: 16px; margin-bottom: 30px; text-align: left; display: block; width: auto; max-width: none;
+        }
+        .c-row { color: var(--text-gold-mute); align-items: center; margin-bottom: 15px; font-size: 14px; }
+        .trust-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+        .badge-item { 
+            font-size: 11px; color: var(--gold-rich); background: rgba(8, 11, 16, 0.8); 
+            border: 1px solid var(--gold-dark); padding: 8px 16px; border-radius: 50px; 
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* BOTTOM BAR */
+        .bottom-bar {
+            position: fixed; bottom: 25px; left: 20px; right: 20px;
+            background: rgba(17, 22, 32, 0.95); backdrop-filter: blur(20px);
+            padding: 15px 25px; border-radius: 12px;
+            border: 1px solid var(--gold-rich);
+            display: none; justify-content: space-between; align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), var(--gold-glow);
+            z-index: 999; cursor: pointer; animation: floatUp 0.4s ease;
+        }
+        @keyframes floatUp { from { transform: translateY(100px); } to { transform: translateY(0); } }
+
+        .view-cart-btn {
+            background: var(--gold-liquid); color: #080B10;
+            padding: 10px 24px; border-radius: 6px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* DRAWER */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000;
+            display: none; backdrop-filter: blur(5px);
+        }
+        .drawer {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--bg-surface); 
+            border-top-left-radius: 24px; border-top-right-radius: 24px;
+            padding: 30px; z-index: 1001; transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+            border-top: 4px solid var(--gold-rich);
+            max-height: 85vh; overflow-y: auto;
+        }
+        .drawer.open { transform: translateY(0); }
+        .modal-overlay.open { display: block; }
+        
+        .wa-checkout {
+            display: block; background: var(--gold-liquid); color: #080B10; text-align: center;
+            padding: 18px; border-radius: 10px; text-decoration: none; font-weight: 800; margin-top: 30px;
+            font-size: 15px; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .cart-list-item { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid rgba(203, 161, 85, 0.2); align-items: center; }
+        
+        /* Gold Icon fix */
+        .header a { color: var(--gold-rich); font-size: 24px; text-decoration: none; }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="brand">Colaba Store</div>
+        <a href="https://wa.me/919529123856">💬</a>
+    </header>
+
+    <div class="banner-container">
+        <div class="banner">
+            <div class="banner-box">
+                <h2>The Royal Collection</h2>
+                <p>Timeless Elegance</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search for luxury items...">
+    </div>
+
+    <div class="cat-scroll">
+        <div class="chip active" onclick="filterCat('all', this)">All</div>
+        <div class="chip" onclick="filterCat('watch', this)">Watches</div>
+        <div class="chip" onclick="filterCat('gadget', this)">Gadgets</div>
+        <div class="chip" onclick="filterCat('fashion', this)">Fashion</div>
+    </div>
+
+    <div class="grid" id="productGrid">
+        <div style="color:var(--gold-rich); width:200%; padding:40px; text-align:center;">Loading Collection...</div>
+    </div>
+
+    <footer class="footer">
+        <div class="f-brand">The Colaba Store</div>
+        <p style="color:var(--text-gold-mute); font-size:13px; margin-bottom:20px;">
+            Purveyors of fine goods and premium technology. <br>Based in the heart of Nagpur.
+        </p>
+
+        <div class="trust-badges">
+            <div class="badge-item">★ Authentic</div>
+            <div class="badge-item">★ Premium</div>
+            <div class="badge-item">★ Trusted</div>
+        </div>
+
+        <div class="contact-box">
+            <div style="font-size:11px; color:var(--gold-rich); margin-bottom:10px; text-transform:uppercase;">Visit Us</div>
+            <div style="color:var(--text-ivory); font-size:13px; margin-bottom:5px;">Sitabuldi Main Road, Nagpur, 440012</div>
+            <div style="color:var(--text-ivory); font-size:13px;">+91 95291 23856</div>
+        </div>
+        
+        <div style="color:var(--gold-dark); font-size:11px;">EST. 2026 • COLABA STORE</div>
+    </footer>
+
+    <div class="bottom-bar" id="bottomBar" onclick="openCart()">
+        <div style="color:var(--text-ivory); font-weight:700;"><span id="totalCount" style="color:var(--gold-rich);">0</span> Items • <span id="totalPrice" style="color:var(--gold-rich);">₹0</span></div>
+        <div class="view-cart-btn">VIEW BAG</div>
+    </div>
+
+    <div class="modal-overlay" id="overlay" onclick="closeCart()"></div>
+    <div class="drawer" id="cartDrawer">
+        <div class="drawer-title" style="font-family:'Cinzel Decorative'; font-size:24px; color:var(--gold-rich); margin-bottom:20px;">Shopping Bag</div>
+        <div id="cartListHTML"></div>
+        <a href="#" id="waLink" class="wa-checkout">Proceed to Order</a>
+        <div style="text-align:center; margin-top:15px; color:var(--text-gold-mute); font-size:12px; cursor:pointer;" onclick="closeCart()">Close</div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // ✅ CONFIG
+        const firebaseConfig = {
+          apiKey: "AIzaSyASKtPdTQCs-iQC85bSwg5eKeRdmvpXwWA",
+          authDomain: "colaba-store.firebaseapp.com",
+          databaseURL: "https://colaba-store-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "colaba-store",
+          storageBucket: "colaba-store.firebasestorage.app",
+          messagingSenderId: "896100208482",
+          appId: "1:896100208482:web:ac14a73c080a85f839e63b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        let allProducts = [];
+        let cart = {}; 
+        const myPhone = "919529123856";
+
+        get(child(ref(db), 'products')).then((snapshot) => {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = "";
+            if (snapshot.exists()) {
+                allProducts = Object.entries(snapshot.val()).map(([k, v]) => ({ ...v, id: k })).reverse();
+                renderProducts(allProducts);
+            } else {
+                grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Collection is empty.</p>";
+            }
+        });
+
+        window.renderProducts = function(list) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = "";
+            list.forEach(p => {
+                let off = p.originalPrice > p.price ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
+                let qty = cart[p.id] || 0;
+                
+                let btnHTML = qty === 0 
+                    ? `<button class="btn-add" onclick="updateQty('${p.id}', 1)">ADD TO BAG</button>` 
+                    : `<div class="stepper">
+                        <button class="step-btn" onclick="updateQty('${p.id}', -1)">−</button>
+                        <span class="step-count">${qty}</span>
+                        <button class="step-btn" onclick="updateQty('${p.id}', 1)">+</button>
+                       </div>`;
+
+                grid.innerHTML += `
+                    <div class="card">
+                        ${off > 0 ? `<div class="badge-off">${off}% OFF</div>` : ''}
+                        <div class="img-box"><img src="${p.image}" onerror="this.src='https://via.placeholder.com/150'"></div>
+                        <div class="info">
+                            <div class="name">${p.name}</div>
+                            <div class="price-row">
+                                <span class="curr-price">₹${p.price}</span>
+                                ${off > 0 ? `<span class="old-price">₹${p.originalPrice}</span>` : ''}
+                            </div>
+                            <div id="btn-${p.id}">${btnHTML}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        window.updateQty = function(id, change) {
+            if(!cart[id]) cart[id] = 0;
+            cart[id] += change;
+            if(cart[id] <= 0) delete cart[id];
+            
+            let qty = cart[id] || 0;
+            let btnDiv = document.getElementById(`btn-${id}`);
+            if(btnDiv) {
+                btnDiv.innerHTML = qty === 0 
+                ? `<button class="btn-add" onclick="updateQty('${id}', 1)">ADD TO BAG</button>` 
+                : `<div class="stepper">
+                    <button class="step-btn" onclick="updateQty('${id}', -1)">−</button>
+                    <span class="step-count">${qty}</span>
+                    <button class="step-btn" onclick="updateQty('${id}', 1)">+</button>
+                   </div>`;
+            }
+            updateTotal();
+            if(document.getElementById('cartDrawer').classList.contains('open')) renderCartList();
+        }
+
+        function updateTotal() {
+            let count = 0, price = 0;
+            Object.keys(cart).forEach(k => {
+                let p = allProducts.find(x => x.id === k);
+                if(p) { count += cart[k]; price += p.price * cart[k]; }
+            });
+            document.getElementById('totalCount').innerText = count;
+            document.getElementById('totalPrice').innerText = `₹${price}`;
+            document.getElementById('bottomBar').style.display = count > 0 ? 'flex' : 'none';
+        }
+
+        window.openCart = function() {
+            renderCartList();
+            document.getElementById('overlay').classList.add('open');
+            document.getElementById('cartDrawer').classList.add('open');
+        }
+        window.closeCart = function() {
+            document.getElementById('overlay').classList.remove('open');
+            document.getElementById('cartDrawer').classList.remove('open');
+        }
+
+        function renderCartList() {
+            let html = "", msg = `*New Royal Order* 👑\n\n`, total = 0;
+            Object.keys(cart).forEach(k => {
+                let p = allProducts.find(x => x.id === k);
+                if(p) {
+                    let cost = p.price * cart[k];
+                    total += cost;
+                    msg += `▪️ ${p.name} (x${cart[k]}) - ₹${cost}\n`;
+                    html += `
+                    <div class="cart-list-item">
+                        <div>
+                            <div style="font-family:'Cinzel Decorative'; font-size:16px; color:var(--gold-light);">${p.name}</div>
+                            <div style="font-size:12px; color:#888;">₹${p.price} x ${cart[k]}</div>
+                        </div>
+                        <div class="stepper" style="width:100px; padding:2px; border-color:#444;">
+                            <button class="step-btn" onclick="updateQty('${k}', -1)">−</button>
+                            <span class="step-count">${cart[k]}</span>
+                            <button class="step-btn" onclick="updateQty('${k}', 1)">+</button>
+                        </div>
+                    </div>`;
+                }
+            });
+            msg += `\n*💰 Total: ₹${total}*`;
+            document.getElementById('cartListHTML').innerHTML = html || "<p style='color:var(--text-gold-mute); text-align:center;'>Your bag is empty.</p>";
+            document.getElementById('waLink').href = `https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`;
+        }
+
+        window.filterCat = function(c, b) {
+            document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            renderProducts(c === 'all' ? allProducts : allProducts.filter(x => x.category === c));
+        }
+        document.getElementById('searchInput').addEventListener('keyup', e => {
+            let v = e.target.value.toLowerCase();
+            renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
+        });
+    </script>
+</body>
+</html>
