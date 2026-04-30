@@ -88,7 +88,7 @@
         .chip {
             background: rgba(17, 22, 32, 0.5); color: var(--gold-rich); padding: 10px 24px;
             border-radius: 50px; font-size: 12px; font-weight: 700; white-space: nowrap;
-            border: 1px solid rgba(203, 161, 85, 0.5); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            border: 1px solid rgba(203, 161, 85, 0.5); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
         }
         .chip.active { 
             background: var(--gold-liquid); color: #080B10; border-color: transparent; 
@@ -133,7 +133,7 @@
         }
         .step-btn {
             background: var(--gold-liquid); border: none; color: #080B10;
-            width: 32px; height: 32px; font-size: 18px; font-weight: bold; border-radius: 6px;
+            width: 32px; height: 32px; font-size: 18px; font-weight: bold; border-radius: 6px; cursor: pointer;
         }
         .step-count { color: var(--text-ivory); }
         
@@ -203,7 +203,7 @@
         .cart-list-item { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid rgba(203, 161, 85, 0.2); align-items: center; }
         .header a { color: var(--gold-rich); font-size: 24px; text-decoration: none; }
 
-        /* --- 🏛️ NEW CHECKOUT MODAL (Colaba Themed) --- */
+        /* --- 🏛️ CHECKOUT MODAL --- */
         .checkout-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; 
             background: rgba(0, 0, 0, 0.85); z-index: 3000; align-items: flex-end; justify-content: center;
@@ -250,19 +250,17 @@
 
         .payment-options { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
         .payment-option {
-            border: 1px solid rgba(203, 161, 85, 0.3); border-radius: 16px; padding: 18px;
-            cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 15px;
-            background: var(--bg-deep);
+            border: 1px solid var(--gold-rich); border-radius: 16px; padding: 18px;
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(203, 161, 85, 0.1); /* Always selected state */
         }
-        .payment-option.selected { border-color: var(--gold-rich); background: rgba(203, 161, 85, 0.1); }
         .payment-radio { width: 22px; height: 22px; accent-color: var(--gold-rich); }
         .payment-icon { font-size: 1.6rem; width: 48px; height: 48px; background: var(--bg-surface); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(203,161,85,0.2); }
         .payment-title { font-weight: 700; font-size: 1rem; color: var(--text-ivory); }
         .payment-desc { font-size: 0.8rem; color: var(--text-gold-mute); margin-top: 3px; }
 
-        /* --- NEW UPI APP GRID STYLING --- */
-        .upi-details, .cod-details { margin-top: 25px; display: none; animation: fadeIn 0.4s; }
-        .upi-details.active, .cod-details.active { display: block; }
+        /* UPI APP GRID STYLING */
+        .upi-details { margin-top: 25px; display: block; animation: fadeIn 0.4s; }
         .upi-intent-box { background: var(--bg-deep); border: 1px solid rgba(203, 161, 85, 0.2); border-radius: 16px; padding: 25px 20px; text-align: center; }
         .intent-msg { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
         .intent-sub { font-size: 0.9rem; color: var(--text-gold-mute); margin-bottom: 20px; }
@@ -306,7 +304,7 @@
 
     <header class="header">
         <div class="brand">Colaba Store</div>
-        <a href="https://wa.me/919529123856">💬</a>
+        <a href="https://wa.me/917028808916">💬</a>
     </header>
 
     <div class="banner-container">
@@ -323,7 +321,10 @@
     </div>
 
     <div class="cat-scroll">
-        <div class="chip active" onclick="filterCat('all', this)">All</div>
+        <div class="chip active" onclick="filterCat('all', this)">All Items</div>
+        <div class="chip" onclick="filterCat('shoes', this)">Shoes</div>
+        <div class="chip" onclick="filterCat('mens', this)">Mens</div>
+        <div class="chip" onclick="filterCat('ladies', this)">Ladies</div>
         <div class="chip" onclick="filterCat('watch', this)">Watches</div>
         <div class="chip" onclick="filterCat('gadget', this)">Gadgets</div>
         <div class="chip" onclick="filterCat('fashion', this)">Fashion</div>
@@ -342,7 +343,7 @@
         <div class="contact-box">
             <div style="font-size:11px; color:var(--gold-rich); margin-bottom:10px; text-transform:uppercase;">Visit Us</div>
             <div style="color:var(--text-ivory); font-size:13px; margin-bottom:5px;">Sitabuldi Main Road, Nagpur, 440012</div>
-            <div style="color:var(--text-ivory); font-size:13px;">+91 95291 23856</div>
+            <div style="color:var(--text-ivory); font-size:13px;">+91 70288 08916</div>
         </div>
         <div style="color:var(--gold-dark); font-size:11px;">EST. 2026 • COLABA STORE</div>
     </footer>
@@ -400,20 +401,12 @@
                     <div class="step-title"><span class="step-number">2</span> Payment Method</div>
                     
                     <div class="payment-options">
-                        <div class="payment-option" onclick="selectPayment('upi')" id="upiOption">
-                            <input type="radio" class="payment-radio" name="payment" id="upiRadio" value="upi">
+                        <div class="payment-option">
+                            <input type="radio" class="payment-radio" name="payment" id="upiRadio" value="upi" checked>
                             <div class="payment-icon">⚡</div>
                             <div>
-                                <div class="payment-title">UPI Payment</div>
+                                <div class="payment-title">Online Payment</div>
                                 <div class="payment-desc">GPay, PhonePe, Paytm, etc.</div>
-                            </div>
-                        </div>
-                        <div class="payment-option" onclick="selectPayment('cod')" id="codOption">
-                            <input type="radio" class="payment-radio" name="payment" id="codRadio" value="cod">
-                            <div class="payment-icon">💵</div>
-                            <div>
-                                <div class="payment-title">Cash on Delivery</div>
-                                <div class="payment-desc">Pay cash upon receiving</div>
                             </div>
                         </div>
                     </div>
@@ -450,10 +443,6 @@
                         </div>
                     </div>
                     
-                    <div class="cod-details" id="codDetails" style="text-align:center; padding: 20px 0;">
-                        <button type="button" class="btn-pay-intent" onclick="completeCODPayment()" style="background:#28a745; color:white; border:none;">Confirm COD Order</button>
-                    </div>
-                    
                     <div class="order-summary">
                         <div class="summary-title">Bill Details</div>
                         <div class="summary-row"><span>Total Payable</span><span id="summaryTotal">₹0</span></div>
@@ -476,7 +465,7 @@
         <div class="success-content">
             <span class="success-icon">👑</span>
             <h2 class="success-title">Order Placed!</h2>
-            <p style="color:var(--text-ivory); margin-bottom:20px;">Your royal order is confirmed. Details sent via WhatsApp.</p>
+            <p style="color:var(--text-ivory); margin-bottom:20px;">Your colaba order is confirmed. Details sent via WhatsApp.</p>
             <div class="order-id">Order ID: <span id="orderIdTag"></span></div>
             <button class="btn-next" onclick="closeSuccessModal()">Continue Shopping</button>
         </div>
@@ -501,7 +490,9 @@
         
         let allProducts = [];
         window.cart = {}; 
-        const myPhone = "919529123856";
+        
+        // CHANGED: WhatsApp number updated here for logic
+        const myPhone = "917028808916";
 
         get(child(ref(db), 'products')).then((snapshot) => {
             const grid = document.getElementById('productGrid');
@@ -628,6 +619,7 @@
             b.classList.add('active');
             renderProducts(c === 'all' ? allProducts : allProducts.filter(x => x.category === c));
         }
+        
         document.getElementById('searchInput').addEventListener('keyup', e => {
             let v = e.target.value.toLowerCase();
             renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
@@ -663,6 +655,10 @@
             document.getElementById('step2').classList.remove('active');
             document.getElementById('footerStep1').style.display = 'flex';
             document.getElementById('footerStep2').style.display = 'none';
+            
+            // Reset UPI Flow just in case
+            document.getElementById('upiInitialState').style.display = 'block';
+            document.getElementById('upiConfirmState').classList.remove('active');
         }
 
         window.closeCheckoutModal = function() {
@@ -692,25 +688,6 @@
             document.getElementById('step' + step).classList.add('active');
         }
 
-        window.selectPayment = function(method) {
-            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-            document.getElementById('upiDetails').classList.remove('active');
-            document.getElementById('codDetails').classList.remove('active');
-            
-            if (method === 'upi') {
-                document.getElementById('upiOption').classList.add('selected');
-                document.getElementById('upiRadio').checked = true;
-                document.getElementById('upiDetails').classList.add('active');
-                document.getElementById('upiInitialState').style.display = 'block';
-                document.getElementById('upiConfirmState').classList.remove('active');
-            } else if (method === 'cod') {
-                document.getElementById('codOption').classList.add('selected');
-                document.getElementById('codRadio').checked = true;
-                document.getElementById('codDetails').classList.add('active');
-            }
-        }
-
-        // --- CHANGED: Deep Linking App Logic ---
         window.payWithUPIApp = function(appId) {
             const totalAmount = getCartTotalAmount();
             const trxnId = 'CS' + Date.now();
@@ -718,11 +695,8 @@
             const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
             localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
 
-            // Generate UPI parameters
             let params = `pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
-            
-            // Build Deep Link URL based on button clicked
-            let deepLink = `upi://pay?${params}`; // Default generic fallback
+            let deepLink = `upi://pay?${params}`; 
             
             if (appId === 'gpay') {
                 deepLink = `tez://upi/pay?${params}`;
@@ -732,7 +706,6 @@
                 deepLink = `paytmmp://pay?${params}`;
             }
 
-            // Redirect user to specific App
             window.location.href = deepLink;
             
             document.getElementById('upiInitialState').style.display = 'none';
@@ -747,21 +720,19 @@
 
         window.completeUPIPayment = function() {
             localStorage.removeItem('colaba_payment_pending');
-            finalizeOrder('UPI', 'Paid via UPI App (User Confirmed)');
+            finalizeOrder();
         }
 
-        window.completeCODPayment = function() {
-            finalizeOrder('COD', 'Cash on Delivery');
-        }
-
-        window.finalizeOrder = function(method, status) {
+        // CHANGED: finalizeOrder now only handles UPI since COD is removed
+        window.finalizeOrder = function() {
             const orderId = 'CS' + Date.now().toString().slice(-6);
             document.getElementById('orderIdTag').innerText = orderId;
             
             const addr = orderData.address;
             const total = getCartTotalAmount();
             
-            let message = `*👑 NEW ROYAL ORDER - Colaba Store*\n`;
+            // CHANGED: Header Text updated
+            let message = `*👑 NEW COLABA ORDER - Colaba Store*\n`;
             message += `━━━━━━━━━━━━━━━━━━━━\n`;
             message += `🆔 *Order ID:* ${orderId}\n\n`;
             
@@ -775,16 +746,14 @@
             message += `\n💰 *TOTAL AMOUNT: ₹${total}*\n\n`;
             
             message += `💳 *PAYMENT STATUS:*\n`;
-            if (method === 'UPI') {
-                message += `✅ *PAID VIA UPI APP*\n⚠️ *Please check bank for ₹${total}*\n`;
-            } else {
-                message += `🚚 *CASH ON DELIVERY*\n💵 Collect ₹${total} upon delivery\n`;
-            }
+            message += `✅ *PAID VIA UPI APP*\n⚠️ *Please check bank for ₹${total}*\n`;
+            
             message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
             message += `📍 *DELIVERY ADDRESS:*\n👤 ${addr.name}\n📱 ${addr.mobile}\n📍 ${addr.fullAddress}\n🏙️ ${addr.city} - ${addr.pincode}\n`;
             
             const encodedMsg = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/919529123856?text=${encodedMsg}`;
+            // CHANGED: WhatsApp number updated here for the final message
+            const whatsappUrl = `https://wa.me/917028808916?text=${encodedMsg}`;
             
             setTimeout(() => { window.open(whatsappUrl, '_blank'); }, 500);
             
@@ -818,7 +787,6 @@
                     
                     initiateCheckout();
                     goToStep(2);
-                    selectPayment('upi');
                     document.getElementById('upiInitialState').style.display = 'none';
                     document.getElementById('upiConfirmState').classList.add('active');
                 }
