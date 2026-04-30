@@ -260,11 +260,22 @@
         .payment-title { font-weight: 700; font-size: 1rem; color: var(--text-ivory); }
         .payment-desc { font-size: 0.8rem; color: var(--text-gold-mute); margin-top: 3px; }
 
+        /* --- NEW UPI APP GRID STYLING --- */
         .upi-details, .cod-details { margin-top: 25px; display: none; animation: fadeIn 0.4s; }
         .upi-details.active, .cod-details.active { display: block; }
         .upi-intent-box { background: var(--bg-deep); border: 1px solid rgba(203, 161, 85, 0.2); border-radius: 16px; padding: 25px 20px; text-align: center; }
         .intent-msg { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
-        .intent-sub { font-size: 0.9rem; color: var(--text-gold-mute); margin-bottom: 25px; }
+        .intent-sub { font-size: 0.9rem; color: var(--text-gold-mute); margin-bottom: 20px; }
+        
+        .upi-app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .upi-app-btn {
+            background: rgba(17, 22, 32, 0.6); border: 1px solid rgba(203, 161, 85, 0.3);
+            color: var(--text-ivory); padding: 14px 10px; border-radius: 10px; font-weight: 700;
+            font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: all 0.2s; font-family: inherit;
+        }
+        .upi-app-btn:active { transform: scale(0.96); border-color: var(--gold-rich); background: rgba(203, 161, 85, 0.15); }
+        .app-icon { font-size: 1.2rem; }
 
         .payment-confirm-screen { display: none; text-align: center; padding: 20px 0; background: rgba(203, 161, 85, 0.05); border-radius: 16px; border: 1px dashed var(--gold-rich); }
         .payment-confirm-screen.active { display: block; }
@@ -393,8 +404,8 @@
                             <input type="radio" class="payment-radio" name="payment" id="upiRadio" value="upi">
                             <div class="payment-icon">⚡</div>
                             <div>
-                                <div class="payment-title">UPI Apps</div>
-                                <div class="payment-desc">GPay, PhonePe, Paytm</div>
+                                <div class="payment-title">UPI Payment</div>
+                                <div class="payment-desc">GPay, PhonePe, Paytm, etc.</div>
                             </div>
                         </div>
                         <div class="payment-option" onclick="selectPayment('cod')" id="codOption">
@@ -409,10 +420,25 @@
                     
                     <div class="upi-details" id="upiDetails">
                         <div id="upiInitialState" class="upi-intent-box">
-                            <div class="intent-msg">Pay <span id="intentAmountDisplay" style="color:#28a745;">₹0</span> securely</div>
-                            <div class="intent-sub">Directly via your favorite UPI App</div>
-                            <button type="button" class="btn-pay-intent" onclick="payWithUPIApp()">PAY NOW ➔</button>
+                            <div class="intent-msg">Pay <span id="intentAmountDisplay" style="color:var(--gold-light);">₹0</span> securely</div>
+                            <div class="intent-sub">Select your preferred app to complete payment</div>
+                            
+                            <div class="upi-app-grid">
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('gpay')">
+                                    <span class="app-icon" style="color:#4285F4;">G</span> GPay
+                                </button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('phonepe')">
+                                    <span class="app-icon" style="color:#5f259f;">पे</span> PhonePe
+                                </button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('paytm')">
+                                    <span class="app-icon" style="color:#00B9F1;">P</span> Paytm
+                                </button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('generic')">
+                                    <span class="app-icon">⚡</span> Other Apps
+                                </button>
+                            </div>
                         </div>
+
                         <div id="upiConfirmState" class="payment-confirm-screen">
                             <div class="spinner"></div>
                             <div style="font-weight:bold; color:var(--gold-light); margin-bottom:10px;">Waiting for Payment...</div>
@@ -425,7 +451,7 @@
                     </div>
                     
                     <div class="cod-details" id="codDetails" style="text-align:center; padding: 20px 0;">
-                        <button type="button" class="btn-pay-intent" onclick="completeCODPayment()" style="background:#28a745; color:white;">Confirm COD Order</button>
+                        <button type="button" class="btn-pay-intent" onclick="completeCODPayment()" style="background:#28a745; color:white; border:none;">Confirm COD Order</button>
                     </div>
                     
                     <div class="order-summary">
@@ -474,7 +500,7 @@
         const db = getDatabase(app);
         
         let allProducts = [];
-        window.cart = {}; // Exposed to window for checkout logic
+        window.cart = {}; 
         const myPhone = "919529123856";
 
         get(child(ref(db), 'products')).then((snapshot) => {
@@ -482,10 +508,9 @@
             grid.innerHTML = "";
             if (snapshot.exists()) {
                 allProducts = Object.entries(snapshot.val()).map(([k, v]) => ({ ...v, id: k })).reverse();
-                window.allProducts = allProducts; // Exposed
+                window.allProducts = allProducts;
                 renderProducts(allProducts);
                 
-                // Restore session logic if returning from UPI app
                 if(localStorage.getItem('colaba_payment_pending')) {
                     restoreSession();
                 }
@@ -608,7 +633,6 @@
             renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
         });
         
-        // --- CHECKOUT LOGIC PORTED FROM ELITE CRISP ---
         const upiConfig = {
             pa: 'shahidsheikh28@ybl', 
             pn: 'Colaba Store',          
@@ -635,7 +659,6 @@
             document.getElementById('checkoutModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Reset to step 1
             document.getElementById('step1').classList.add('active');
             document.getElementById('step2').classList.remove('active');
             document.getElementById('footerStep1').style.display = 'flex';
@@ -687,15 +710,30 @@
             }
         }
 
-        window.payWithUPIApp = function() {
+        // --- CHANGED: Deep Linking App Logic ---
+        window.payWithUPIApp = function(appId) {
             const totalAmount = getCartTotalAmount();
             const trxnId = 'CS' + Date.now();
             
             const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
             localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
 
-            let upiLink = `upi://pay?pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
-            window.location.href = upiLink;
+            // Generate UPI parameters
+            let params = `pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
+            
+            // Build Deep Link URL based on button clicked
+            let deepLink = `upi://pay?${params}`; // Default generic fallback
+            
+            if (appId === 'gpay') {
+                deepLink = `tez://upi/pay?${params}`;
+            } else if (appId === 'phonepe') {
+                deepLink = `phonepe://pay?${params}`;
+            } else if (appId === 'paytm') {
+                deepLink = `paytmmp://pay?${params}`;
+            }
+
+            // Redirect user to specific App
+            window.location.href = deepLink;
             
             document.getElementById('upiInitialState').style.display = 'none';
             document.getElementById('upiConfirmState').classList.add('active');
@@ -720,7 +758,6 @@
             const orderId = 'CS' + Date.now().toString().slice(-6);
             document.getElementById('orderIdTag').innerText = orderId;
             
-            // Build WhatsApp Message
             const addr = orderData.address;
             const total = getCartTotalAmount();
             
@@ -757,9 +794,9 @@
 
         window.closeSuccessModal = function() {
             document.getElementById('successModal').style.display = 'none';
-            window.cart = {}; // Clear cart
+            window.cart = {}; 
             updateTotal();
-            renderProducts(window.allProducts); // Reset UI
+            renderProducts(window.allProducts); 
         }
 
         function restoreSession() {
