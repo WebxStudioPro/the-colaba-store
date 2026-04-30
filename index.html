@@ -4,13 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Colaba Store | Royal Edition</title>
-    
-    <meta property="og:title" content="The Colaba Store | Royal Edition">
-    <meta property="og:description" content="Discover premium watches, handbags, and lifestyle accessories. Shop the Royal Edition now.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1547996160-71df96335370?q=80&w=1000&auto=format&fit=crop">
-    <meta property="og:url" content="https://the-colaba-store.vercel.app">
-    <meta property="og:type" content="website">
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         /* --- 🏛️ THEME INJECTED: ULTIMATE ART DECO --- */
@@ -167,14 +160,7 @@
             background: rgba(17, 22, 32, 0.8); border: 1px solid var(--gold-rich); padding: 25px;
             border-radius: 16px; margin-bottom: 30px; text-align: left; display: block; width: auto; max-width: none;
         }
-        .c-row { color: var(--text-gold-mute); align-items: center; margin-bottom: 15px; font-size: 14px; }
-        .trust-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
-        .badge-item { 
-            font-size: 11px; color: var(--gold-rich); background: rgba(8, 11, 16, 0.8); 
-            border: 1px solid var(--gold-dark); padding: 8px 16px; border-radius: 50px; 
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-
+        
         /* BOTTOM BAR */
         .bottom-bar {
             position: fixed; bottom: 25px; left: 20px; right: 20px;
@@ -192,7 +178,7 @@
             padding: 10px 24px; border-radius: 6px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* DRAWER */
+        /* DRAWER & MODALS */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000;
             display: none; backdrop-filter: blur(5px);
@@ -212,12 +198,96 @@
         .wa-checkout {
             display: block; background: var(--gold-liquid); color: #080B10; text-align: center;
             padding: 18px; border-radius: 10px; text-decoration: none; font-weight: 800; margin-top: 30px;
-            font-size: 15px; text-transform: uppercase; letter-spacing: 2px;
+            font-size: 15px; text-transform: uppercase; letter-spacing: 2px; border: none; width: 100%; cursor: pointer;
         }
         .cart-list-item { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid rgba(203, 161, 85, 0.2); align-items: center; }
-        
-        /* Gold Icon fix */
         .header a { color: var(--gold-rich); font-size: 24px; text-decoration: none; }
+
+        /* --- 🏛️ NEW CHECKOUT MODAL (Colaba Themed) --- */
+        .checkout-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; 
+            background: rgba(0, 0, 0, 0.85); z-index: 3000; align-items: flex-end; justify-content: center;
+            backdrop-filter: blur(8px); transition: opacity 0.3s ease;
+        }
+        @media (min-width: 768px) { .checkout-overlay { align-items: center; } }
+
+        .checkout-container {
+            background: var(--bg-surface); width: 100%; max-width: 520px; height: 90vh; 
+            border-radius: 24px 24px 0 0; border-top: 4px solid var(--gold-rich);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5); position: relative;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column;
+            color: var(--text-ivory);
+        }
+        @media (min-width: 768px) {
+            .checkout-container { height: auto; max-height: 85vh; border-radius: 24px; animation: popIn 0.3s; }
+        }
+
+        .checkout-header {
+            background: var(--bg-deep); border-bottom: 1px solid rgba(203, 161, 85, 0.3);
+            padding: 20px 25px; border-radius: 20px 20px 0 0; display: flex; justify-content: space-between; align-items: center;
+        }
+        .checkout-title { font-family: 'Cinzel Decorative', cursive; font-size: 1.3rem; color: var(--gold-rich); margin: 0; }
+        .checkout-close { background: transparent; border: 1px solid var(--gold-rich); color: var(--gold-rich); width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        .checkout-body { padding: 25px; padding-bottom: 100px; overflow-y: auto; flex-grow: 1; }
+        .checkout-step { display: none; animation: fadeIn 0.3s; }
+        .checkout-step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .step-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 20px; color: var(--gold-light); display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(203, 161, 85, 0.2); }
+        .step-title .step-number { background: var(--gold-liquid); color: #080B10; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: bold; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-gold-mute); margin-bottom: 8px; }
+        .form-input {
+            width: 100%; padding: 14px 16px; border: 1px solid rgba(203, 161, 85, 0.3);
+            border-radius: 12px; font-size: 1rem; background: rgba(17, 22, 32, 0.6); color: var(--text-ivory);
+            font-family: inherit; transition: all 0.2s;
+        }
+        .form-input:focus { outline: none; border-color: var(--gold-rich); background: var(--bg-deep); }
+        .address-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .payment-options { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .payment-option {
+            border: 1px solid rgba(203, 161, 85, 0.3); border-radius: 16px; padding: 18px;
+            cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 15px;
+            background: var(--bg-deep);
+        }
+        .payment-option.selected { border-color: var(--gold-rich); background: rgba(203, 161, 85, 0.1); }
+        .payment-radio { width: 22px; height: 22px; accent-color: var(--gold-rich); }
+        .payment-icon { font-size: 1.6rem; width: 48px; height: 48px; background: var(--bg-surface); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(203,161,85,0.2); }
+        .payment-title { font-weight: 700; font-size: 1rem; color: var(--text-ivory); }
+        .payment-desc { font-size: 0.8rem; color: var(--text-gold-mute); margin-top: 3px; }
+
+        .upi-details, .cod-details { margin-top: 25px; display: none; animation: fadeIn 0.4s; }
+        .upi-details.active, .cod-details.active { display: block; }
+        .upi-intent-box { background: var(--bg-deep); border: 1px solid rgba(203, 161, 85, 0.2); border-radius: 16px; padding: 25px 20px; text-align: center; }
+        .intent-msg { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
+        .intent-sub { font-size: 0.9rem; color: var(--text-gold-mute); margin-bottom: 25px; }
+
+        .payment-confirm-screen { display: none; text-align: center; padding: 20px 0; background: rgba(203, 161, 85, 0.05); border-radius: 16px; border: 1px dashed var(--gold-rich); }
+        .payment-confirm-screen.active { display: block; }
+        .spinner { width: 40px; height: 40px; border: 4px solid rgba(203, 161, 85, 0.3); border-top: 4px solid var(--gold-rich); border-radius: 50%; margin: 0 auto 15px auto; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .order-summary { background: var(--bg-deep); border-radius: 16px; padding: 20px; margin-top: 25px; border: 1px solid rgba(203, 161, 85, 0.2); }
+        .summary-title { font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: var(--gold-light); text-transform: uppercase; }
+        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; border-bottom: 1px dashed rgba(203, 161, 85, 0.3); color: var(--text-ivory); }
+        .summary-row:last-child { border-bottom: none; font-weight: 800; font-size: 1.2rem; color: var(--gold-rich); padding-top: 15px; }
+
+        .checkout-footer {
+            background: var(--bg-surface); padding: 15px 25px; border-top: 1px solid rgba(203, 161, 85, 0.2);
+            display: flex; justify-content: space-between; gap: 15px; position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 24px 24px;
+        }
+        .btn-back { background: transparent; color: var(--text-ivory); border: 1px solid var(--gold-rich); padding: 14px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; flex: 1; }
+        .btn-next, .btn-pay-intent { background: var(--gold-liquid); color: #080B10; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 800; cursor: pointer; flex: 1.5; text-transform: uppercase; letter-spacing: 1px; width:100%; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        .success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 4000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
+        .success-content { background: var(--bg-surface); width: 100%; max-width: 400px; border-radius: 24px; padding: 35px 25px; text-align: center; border: 2px solid var(--gold-rich); }
+        .success-icon { font-size: 4rem; margin-bottom: 15px; display: block; }
+        .success-title { font-family: 'Cinzel Decorative', cursive; font-size: 1.5rem; color: var(--gold-rich); margin-bottom: 10px; }
+        .order-id { background: rgba(203, 161, 85, 0.1); padding: 15px; border-radius: 12px; font-weight: 700; color: var(--gold-light); margin-bottom: 25px; border: 1px dashed var(--gold-rich); }
 
     </style>
 </head>
@@ -258,18 +328,11 @@
             Purveyors of fine goods and premium technology. <br>Based in the heart of Nagpur.
         </p>
 
-        <div class="trust-badges">
-            <div class="badge-item">★ Authentic</div>
-            <div class="badge-item">★ Premium</div>
-            <div class="badge-item">★ Trusted</div>
-        </div>
-
         <div class="contact-box">
             <div style="font-size:11px; color:var(--gold-rich); margin-bottom:10px; text-transform:uppercase;">Visit Us</div>
             <div style="color:var(--text-ivory); font-size:13px; margin-bottom:5px;">Sitabuldi Main Road, Nagpur, 440012</div>
             <div style="color:var(--text-ivory); font-size:13px;">+91 95291 23856</div>
         </div>
-        
         <div style="color:var(--gold-dark); font-size:11px;">EST. 2026 • COLABA STORE</div>
     </footer>
 
@@ -282,15 +345,121 @@
     <div class="drawer" id="cartDrawer">
         <div class="drawer-title" style="font-family:'Cinzel Decorative'; font-size:24px; color:var(--gold-rich); margin-bottom:20px;">Shopping Bag</div>
         <div id="cartListHTML"></div>
-        <a href="#" id="waLink" class="wa-checkout">Proceed to Order</a>
+        <button id="checkoutBtn" class="wa-checkout" onclick="initiateCheckout()" style="display:none;">Proceed to Checkout</button>
         <div style="text-align:center; margin-top:15px; color:var(--text-gold-mute); font-size:12px; cursor:pointer;" onclick="closeCart()">Close</div>
+    </div>
+
+    <div id="checkoutModal" class="checkout-overlay">
+        <div class="checkout-container" onclick="event.stopPropagation()">
+            <div class="checkout-header">
+                <h2 class="checkout-title">Secure Checkout</h2>
+                <button class="checkout-close" onclick="closeCheckoutModal()">×</button>
+            </div>
+            
+            <form id="checkoutForm" onsubmit="return false;" class="checkout-body">
+                
+                <div class="checkout-step active" id="step1">
+                    <div class="step-title"><span class="step-number">1</span> Delivery Details</div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" id="fullName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mobile Number *</label>
+                        <input type="tel" class="form-input" id="mobileNumber" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                    </div>
+                    <div class="address-grid">
+                        <div class="form-group">
+                            <label class="form-label">Pincode *</label>
+                            <input type="tel" class="form-input" id="pincode" required placeholder="6-digit pincode" pattern="[0-9]{6}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">City *</label>
+                            <input type="text" class="form-input" id="city" required placeholder="Your city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Full Address *</label>
+                        <textarea class="form-input" id="fullAddress" required rows="2" placeholder="House no., Building, Street"></textarea>
+                    </div>
+                </div>
+                
+                <div class="checkout-step" id="step2">
+                    <div class="step-title"><span class="step-number">2</span> Payment Method</div>
+                    
+                    <div class="payment-options">
+                        <div class="payment-option" onclick="selectPayment('upi')" id="upiOption">
+                            <input type="radio" class="payment-radio" name="payment" id="upiRadio" value="upi">
+                            <div class="payment-icon">⚡</div>
+                            <div>
+                                <div class="payment-title">UPI Apps</div>
+                                <div class="payment-desc">GPay, PhonePe, Paytm</div>
+                            </div>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('cod')" id="codOption">
+                            <input type="radio" class="payment-radio" name="payment" id="codRadio" value="cod">
+                            <div class="payment-icon">💵</div>
+                            <div>
+                                <div class="payment-title">Cash on Delivery</div>
+                                <div class="payment-desc">Pay cash upon receiving</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="upi-details" id="upiDetails">
+                        <div id="upiInitialState" class="upi-intent-box">
+                            <div class="intent-msg">Pay <span id="intentAmountDisplay" style="color:#28a745;">₹0</span> securely</div>
+                            <div class="intent-sub">Directly via your favorite UPI App</div>
+                            <button type="button" class="btn-pay-intent" onclick="payWithUPIApp()">PAY NOW ➔</button>
+                        </div>
+                        <div id="upiConfirmState" class="payment-confirm-screen">
+                            <div class="spinner"></div>
+                            <div style="font-weight:bold; color:var(--gold-light); margin-bottom:10px;">Waiting for Payment...</div>
+                            <div style="font-size:0.9rem; color:var(--text-ivory); margin-bottom:20px;">Complete the payment in your UPI app. Once paid, click "Yes" below.</div>
+                            <div style="display:flex; gap:10px;">
+                                <button type="button" class="btn-back" onclick="resetUPIFlow()">Cancel</button>
+                                <button type="button" class="btn-pay-intent" onclick="completeUPIPayment()">Yes, I Paid</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cod-details" id="codDetails" style="text-align:center; padding: 20px 0;">
+                        <button type="button" class="btn-pay-intent" onclick="completeCODPayment()" style="background:#28a745; color:white;">Confirm COD Order</button>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div class="summary-title">Bill Details</div>
+                        <div class="summary-row"><span>Total Payable</span><span id="summaryTotal">₹0</span></div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="checkout-footer" id="footerStep1">
+                <button type="button" class="btn-back" onclick="closeCheckoutModal()">Close</button>
+                <button type="button" class="btn-next" onclick="goToStep(2)">Continue</button>
+            </div>
+            <div class="checkout-footer" id="footerStep2" style="display:none;">
+                <button type="button" class="btn-back" onclick="goToStep(1)">Back</button>
+                <div style="flex: 1.5;"></div> 
+            </div>
+        </div>
+    </div>
+    
+    <div id="successModal" class="success-modal">
+        <div class="success-content">
+            <span class="success-icon">👑</span>
+            <h2 class="success-title">Order Placed!</h2>
+            <p style="color:var(--text-ivory); margin-bottom:20px;">Your royal order is confirmed. Details sent via WhatsApp.</p>
+            <div class="order-id">Order ID: <span id="orderIdTag"></span></div>
+            <button class="btn-next" onclick="closeSuccessModal()">Continue Shopping</button>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // ✅ CONFIG
         const firebaseConfig = {
           apiKey: "AIzaSyASKtPdTQCs-iQC85bSwg5eKeRdmvpXwWA",
           authDomain: "colaba-store.firebaseapp.com",
@@ -305,7 +474,7 @@
         const db = getDatabase(app);
         
         let allProducts = [];
-        let cart = {}; 
+        window.cart = {}; // Exposed to window for checkout logic
         const myPhone = "919529123856";
 
         get(child(ref(db), 'products')).then((snapshot) => {
@@ -313,7 +482,13 @@
             grid.innerHTML = "";
             if (snapshot.exists()) {
                 allProducts = Object.entries(snapshot.val()).map(([k, v]) => ({ ...v, id: k })).reverse();
+                window.allProducts = allProducts; // Exposed
                 renderProducts(allProducts);
+                
+                // Restore session logic if returning from UPI app
+                if(localStorage.getItem('colaba_payment_pending')) {
+                    restoreSession();
+                }
             } else {
                 grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Collection is empty.</p>";
             }
@@ -324,7 +499,7 @@
             grid.innerHTML = "";
             list.forEach(p => {
                 let off = p.originalPrice > p.price ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
-                let qty = cart[p.id] || 0;
+                let qty = window.cart[p.id] || 0;
                 
                 let btnHTML = qty === 0 
                     ? `<button class="btn-add" onclick="updateQty('${p.id}', 1)">ADD TO BAG</button>` 
@@ -351,11 +526,11 @@
         }
 
         window.updateQty = function(id, change) {
-            if(!cart[id]) cart[id] = 0;
-            cart[id] += change;
-            if(cart[id] <= 0) delete cart[id];
+            if(!window.cart[id]) window.cart[id] = 0;
+            window.cart[id] += change;
+            if(window.cart[id] <= 0) delete window.cart[id];
             
-            let qty = cart[id] || 0;
+            let qty = window.cart[id] || 0;
             let btnDiv = document.getElementById(`btn-${id}`);
             if(btnDiv) {
                 btnDiv.innerHTML = qty === 0 
@@ -372,9 +547,9 @@
 
         function updateTotal() {
             let count = 0, price = 0;
-            Object.keys(cart).forEach(k => {
+            Object.keys(window.cart).forEach(k => {
                 let p = allProducts.find(x => x.id === k);
-                if(p) { count += cart[k]; price += p.price * cart[k]; }
+                if(p) { count += window.cart[k]; price += p.price * window.cart[k]; }
             });
             document.getElementById('totalCount').innerText = count;
             document.getElementById('totalPrice').innerText = `₹${price}`;
@@ -392,30 +567,35 @@
         }
 
         function renderCartList() {
-            let html = "", msg = `*New Royal Order* 👑\n\n`, total = 0;
-            Object.keys(cart).forEach(k => {
+            let html = "", total = 0;
+            Object.keys(window.cart).forEach(k => {
                 let p = allProducts.find(x => x.id === k);
                 if(p) {
-                    let cost = p.price * cart[k];
+                    let cost = p.price * window.cart[k];
                     total += cost;
-                    msg += `▪️ ${p.name} (x${cart[k]}) - ₹${cost}\n`;
                     html += `
                     <div class="cart-list-item">
                         <div>
                             <div style="font-family:'Cinzel Decorative'; font-size:16px; color:var(--gold-light);">${p.name}</div>
-                            <div style="font-size:12px; color:#888;">₹${p.price} x ${cart[k]}</div>
+                            <div style="font-size:12px; color:#888;">₹${p.price} x ${window.cart[k]}</div>
                         </div>
                         <div class="stepper" style="width:100px; padding:2px; border-color:#444;">
                             <button class="step-btn" onclick="updateQty('${k}', -1)">−</button>
-                            <span class="step-count">${cart[k]}</span>
+                            <span class="step-count">${window.cart[k]}</span>
                             <button class="step-btn" onclick="updateQty('${k}', 1)">+</button>
                         </div>
                     </div>`;
                 }
             });
-            msg += `\n*💰 Total: ₹${total}*`;
             document.getElementById('cartListHTML').innerHTML = html || "<p style='color:var(--text-gold-mute); text-align:center;'>Your bag is empty.</p>";
-            document.getElementById('waLink').href = `https://wa.me/${myPhone}?text=${encodeURIComponent(msg)}`;
+            
+            let btn = document.getElementById('checkoutBtn');
+            if(total > 0) {
+                btn.style.display = 'block';
+                btn.innerText = `Proceed to Checkout (₹${total})`;
+            } else {
+                btn.style.display = 'none';
+            }
         }
 
         window.filterCat = function(c, b) {
@@ -427,6 +607,188 @@
             let v = e.target.value.toLowerCase();
             renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
         });
+        
+        // --- CHECKOUT LOGIC PORTED FROM ELITE CRISP ---
+        const upiConfig = {
+            pa: 'shahidsheikh28@ybl', 
+            pn: 'Colaba Store',          
+            cu: 'INR'                    
+        };
+        
+        let orderData = {};
+
+        window.getCartTotalAmount = function() {
+            let total = 0;
+            Object.keys(window.cart).forEach(k => {
+                let p = window.allProducts.find(x => x.id === k);
+                if(p) total += p.price * window.cart[k];
+            });
+            return total;
+        }
+
+        window.initiateCheckout = function() {
+            closeCart();
+            let total = getCartTotalAmount();
+            document.getElementById('summaryTotal').innerText = `₹${total}`;
+            document.getElementById('intentAmountDisplay').innerText = `₹${total}`;
+            
+            document.getElementById('checkoutModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Reset to step 1
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('footerStep1').style.display = 'flex';
+            document.getElementById('footerStep2').style.display = 'none';
+        }
+
+        window.closeCheckoutModal = function() {
+            document.getElementById('checkoutModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.goToStep = function(step) {
+            const form = document.getElementById('checkoutForm');
+            if (step === 2) {
+                if (!form.reportValidity()) return;
+                orderData.address = {
+                    name: document.getElementById('fullName').value.trim(),
+                    mobile: document.getElementById('mobileNumber').value.trim(),
+                    pincode: document.getElementById('pincode').value.trim(),
+                    city: document.getElementById('city').value.trim(),
+                    fullAddress: document.getElementById('fullAddress').value.trim()
+                };
+                document.getElementById('footerStep1').style.display = 'none';
+                document.getElementById('footerStep2').style.display = 'flex';
+            } else {
+                document.getElementById('footerStep1').style.display = 'flex';
+                document.getElementById('footerStep2').style.display = 'none';
+            }
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step' + step).classList.add('active');
+        }
+
+        window.selectPayment = function(method) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById('upiDetails').classList.remove('active');
+            document.getElementById('codDetails').classList.remove('active');
+            
+            if (method === 'upi') {
+                document.getElementById('upiOption').classList.add('selected');
+                document.getElementById('upiRadio').checked = true;
+                document.getElementById('upiDetails').classList.add('active');
+                document.getElementById('upiInitialState').style.display = 'block';
+                document.getElementById('upiConfirmState').classList.remove('active');
+            } else if (method === 'cod') {
+                document.getElementById('codOption').classList.add('selected');
+                document.getElementById('codRadio').checked = true;
+                document.getElementById('codDetails').classList.add('active');
+            }
+        }
+
+        window.payWithUPIApp = function() {
+            const totalAmount = getCartTotalAmount();
+            const trxnId = 'CS' + Date.now();
+            
+            const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
+            localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
+
+            let upiLink = `upi://pay?pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
+            window.location.href = upiLink;
+            
+            document.getElementById('upiInitialState').style.display = 'none';
+            document.getElementById('upiConfirmState').classList.add('active');
+        }
+
+        window.resetUPIFlow = function() {
+            localStorage.removeItem('colaba_payment_pending');
+            document.getElementById('upiInitialState').style.display = 'block';
+            document.getElementById('upiConfirmState').classList.remove('active');
+        }
+
+        window.completeUPIPayment = function() {
+            localStorage.removeItem('colaba_payment_pending');
+            finalizeOrder('UPI', 'Paid via UPI App (User Confirmed)');
+        }
+
+        window.completeCODPayment = function() {
+            finalizeOrder('COD', 'Cash on Delivery');
+        }
+
+        window.finalizeOrder = function(method, status) {
+            const orderId = 'CS' + Date.now().toString().slice(-6);
+            document.getElementById('orderIdTag').innerText = orderId;
+            
+            // Build WhatsApp Message
+            const addr = orderData.address;
+            const total = getCartTotalAmount();
+            
+            let message = `*👑 NEW ROYAL ORDER - Colaba Store*\n`;
+            message += `━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `🆔 *Order ID:* ${orderId}\n\n`;
+            
+            message += `🛒 *ORDER DETAILS:*\n`;
+            Object.keys(window.cart).forEach(k => {
+                let p = window.allProducts.find(x => x.id === k);
+                if(p) {
+                    message += `▪️ ${p.name} (x${window.cart[k]}) - ₹${p.price * window.cart[k]}\n`;
+                }
+            });
+            message += `\n💰 *TOTAL AMOUNT: ₹${total}*\n\n`;
+            
+            message += `💳 *PAYMENT STATUS:*\n`;
+            if (method === 'UPI') {
+                message += `✅ *PAID VIA UPI APP*\n⚠️ *Please check bank for ₹${total}*\n`;
+            } else {
+                message += `🚚 *CASH ON DELIVERY*\n💵 Collect ₹${total} upon delivery\n`;
+            }
+            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+            message += `📍 *DELIVERY ADDRESS:*\n👤 ${addr.name}\n📱 ${addr.mobile}\n📍 ${addr.fullAddress}\n🏙️ ${addr.city} - ${addr.pincode}\n`;
+            
+            const encodedMsg = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/919529123856?text=${encodedMsg}`;
+            
+            setTimeout(() => { window.open(whatsappUrl, '_blank'); }, 500);
+            
+            closeCheckoutModal();
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        window.closeSuccessModal = function() {
+            document.getElementById('successModal').style.display = 'none';
+            window.cart = {}; // Clear cart
+            updateTotal();
+            renderProducts(window.allProducts); // Reset UI
+        }
+
+        function restoreSession() {
+            try {
+                const data = JSON.parse(localStorage.getItem('colaba_payment_pending'));
+                if (data.paymentStarted && data.cart) {
+                    window.cart = data.cart;
+                    updateTotal();
+                    renderProducts(window.allProducts);
+                    
+                    if (data.address) {
+                        document.getElementById('fullName').value = data.address.name || '';
+                        document.getElementById('mobileNumber').value = data.address.mobile || '';
+                        document.getElementById('pincode').value = data.address.pincode || '';
+                        document.getElementById('city').value = data.address.city || '';
+                        document.getElementById('fullAddress').value = data.address.fullAddress || '';
+                        orderData.address = data.address;
+                    }
+                    
+                    initiateCheckout();
+                    goToStep(2);
+                    selectPayment('upi');
+                    document.getElementById('upiInitialState').style.display = 'none';
+                    document.getElementById('upiConfirmState').classList.add('active');
+                }
+            } catch (e) {
+                localStorage.removeItem('colaba_payment_pending');
+            }
+        }
     </script>
 </body>
 </html>
