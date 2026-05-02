@@ -6,298 +6,111 @@
     <title>The Colaba Store | Royal Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 🏛️ THEME INJECTED: ULTIMATE ART DECO --- */
         :root {
-            --bg-deep: #080B10;
-            --bg-surface: #111620;
-            --bg-glass: rgba(17, 22, 32, 0.85);
-            --text-ivory: #EAE0D5;
-            --text-gold-mute: #B49B74;
-            --gold-rich: #CBA155;
-            --gold-light: #FBD28B;
-            --gold-dark: #AA823C;
+            --bg-deep: #080B10; --bg-surface: #111620; --bg-glass: rgba(17, 22, 32, 0.85);
+            --text-ivory: #EAE0D5; --text-gold-mute: #B49B74; --gold-rich: #CBA155;
+            --gold-light: #FBD28B; --gold-dark: #AA823C;
             --gold-liquid: linear-gradient(135deg, #AA823C 0%, #CBA155 50%, #AA823C 100%);
             --gold-shine: linear-gradient(45deg, #AA823C, #FBD28B, #AA823C);
             --shadow-soft: 0 10px 30px -10px rgba(0,0,0,0.5);
             --shadow-deep: 0 20px 40px -15px rgba(0,0,0,0.7);
             --gold-glow: 0 0 20px rgba(203, 161, 85, 0.2);
         }
-
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Josefin Sans', sans-serif;
-            background-color: var(--bg-deep);
-            background-image: linear-gradient(rgba(8,11,16,0.97), rgba(8,11,16,0.97)), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23CBA155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            color: var(--text-ivory); margin: 0; padding-bottom: 120px; letter-spacing: 0.3px;
-        }
-
-        /* HEADER */
-        .header {
-            padding: 18px 25px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            position: sticky; top: 0; z-index: 100;
-            border-bottom: 1px solid rgba(203, 161, 85, 0.3);
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: var(--shadow-soft);
-        }
-        .brand { 
-            font-family: 'Cinzel Decorative', cursive;
-            font-size: 22px; font-weight: 900; 
-            background: var(--gold-shine); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-        
-        /* BANNER */
+        body { font-family: 'Josefin Sans', sans-serif; background-color: var(--bg-deep); background-image: linear-gradient(rgba(8,11,16,0.97), rgba(8,11,16,0.97)), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23CBA155' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); color: var(--text-ivory); margin: 0; padding-bottom: 120px; letter-spacing: 0.3px; }
+        .header { padding: 18px 25px; background: var(--bg-glass); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(203, 161, 85, 0.3); display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-soft); }
+        .brand { font-family: 'Cinzel Decorative', cursive; font-size: 22px; font-weight: 900; background: var(--gold-shine); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
         .banner-container { padding: 25px 20px; }
-        .banner {
-            width: 100%; height: 220px;
-            background-image: url('https://images.unsplash.com/photo-1550332781-0891793997a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
-            background-size: cover; background-position: center;
-            border-radius: 16px;
-            display: flex; align-items: flex-end; padding: 30px;
-            position: relative; overflow: hidden;
-            border: 1px solid rgba(203, 161, 85, 0.4);
-            box-shadow: var(--shadow-deep);
-        }
+        .banner { width: 100%; height: 220px; background-image: url('https://images.unsplash.com/photo-1550332781-0891793997a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center; border-radius: 16px; display: flex; align-items: flex-end; padding: 30px; position: relative; overflow: hidden; border: 1px solid rgba(203, 161, 85, 0.4); box-shadow: var(--shadow-deep); }
         .banner::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, #080B10 10%, transparent 80%); }
-        
-        .banner-box { position: relative; z-index: 2; padding:0; border:none; background:none; backdrop-filter:none; text-align: left; }
-        .banner h2 { 
-            font-family: 'Cinzel Decorative', cursive; 
-            margin: 0; font-size: 28px; color: var(--gold-light); 
-            text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); font-style: normal;
-        }
-        .banner p { margin: 8px 0 0; font-size: 14px; color: var(--text-ivory); font-weight: 600; opacity: 0.9; text-transform: none; letter-spacing: 0.5px; }
-
-        /* SEARCH */
+        .banner-box { position: relative; z-index: 2; padding:0; border:none; background:none; text-align: left; }
+        .banner h2 { font-family: 'Cinzel Decorative', cursive; margin: 0; font-size: 28px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .banner p { margin: 8px 0 0; font-size: 14px; color: var(--text-ivory); font-weight: 600; opacity: 0.9; letter-spacing: 0.5px; }
         .search-box { padding: 0 20px 15px; }
-        .search-input {
-            width: 100%; background: rgba(17, 22, 32, 0.6); 
-            border: 1px solid rgba(203, 161, 85, 0.3);
-            padding: 16px 20px; border-radius: 12px; color: var(--text-ivory);
-            font-family: inherit; font-size: 15px; outline: none; transition: 0.3s;
-            backdrop-filter: blur(10px);
-        }
+        .search-input { width: 100%; background: rgba(17, 22, 32, 0.6); border: 1px solid rgba(203, 161, 85, 0.3); padding: 16px 20px; border-radius: 12px; color: var(--text-ivory); font-family: inherit; font-size: 15px; outline: none; transition: 0.3s; backdrop-filter: blur(10px); }
         .search-input:focus { border-color: var(--gold-rich); background: var(--bg-surface); }
-
-        /* CHIPS */
         .cat-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 5px 20px 25px; scrollbar-width: none; }
-        .chip {
-            background: rgba(17, 22, 32, 0.5); color: var(--gold-rich); padding: 10px 24px;
-            border-radius: 50px; font-size: 12px; font-weight: 700; white-space: nowrap;
-            border: 1px solid rgba(203, 161, 85, 0.5); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
-        }
-        .chip.active { 
-            background: var(--gold-liquid); color: #080B10; border-color: transparent; 
-            transform: translateY(-2px); box-shadow: 0 5px 15px rgba(203, 161, 85, 0.4); 
-        }
-
-        /* GRID */
+        .chip { background: rgba(17, 22, 32, 0.5); color: var(--gold-rich); padding: 10px 24px; border-radius: 50px; font-size: 12px; font-weight: 700; white-space: nowrap; border: 1px solid rgba(203, 161, 85, 0.5); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+        .chip.active { background: var(--gold-liquid); color: #080B10; border-color: transparent; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(203, 161, 85, 0.4); }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 20px; }
-        .card {
-            background: var(--bg-surface); border-radius: 16px; overflow: hidden;
-            border: 1px solid rgba(203, 161, 85, 0.2); position: relative; 
-            transition: transform 0.2s; box-shadow: var(--shadow-soft);
-        }
+        .card { background: var(--bg-surface); border-radius: 16px; overflow: hidden; border: 1px solid rgba(203, 161, 85, 0.2); position: relative; transition: transform 0.2s; box-shadow: var(--shadow-soft); }
         .card:hover { border-color: var(--gold-rich); transform: translateY(-5px); box-shadow: var(--gold-glow); }
-        .card:active { transform: scale(0.98); }
-
         .img-box { width: 100%; height: 170px; overflow: hidden; background: #05070a; position: relative; border-bottom: 1px solid rgba(203, 161, 85, 0.1); }
         .img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
-
         .info { padding: 15px; position: relative; z-index: 2; text-align: left; }
-        .name { 
-            font-family: 'Cinzel Decorative', cursive; font-size: 13px; font-weight: 700; 
-            margin-bottom: 8px; color: var(--text-ivory); height: 36px; overflow: hidden; 
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; letter-spacing: 0.5px;
-        }
-        
+        .name { font-family: 'Cinzel Decorative', cursive; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-ivory); height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; letter-spacing: 0.5px; }
         .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; justify-content: flex-start; }
         .curr-price { font-size: 18px; font-weight: 800; color: var(--gold-rich); }
         .old-price { font-size: 12px; text-decoration: line-through; color: var(--text-gold-mute); opacity: 0.8; }
-
-        /* LIQUID GOLD BUTTONS */
-        .btn-add {
-            width: 100%; background: var(--gold-liquid); color: #080B10; border: none;
-            padding: 12px; border-radius: 8px; font-weight: 800; font-size: 12px;
-            cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(170, 130, 60, 0.3);
-        }
-        .stepper {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(8, 11, 16, 0.5); border-radius: 8px; padding: 4px; 
-            border: 1px solid var(--gold-dark);
-        }
-        .step-btn {
-            background: var(--gold-liquid); border: none; color: #080B10;
-            width: 32px; height: 32px; font-size: 18px; font-weight: bold; border-radius: 6px; cursor: pointer;
-        }
+        .btn-add { width: 100%; background: var(--gold-liquid); color: #080B10; border: none; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(170, 130, 60, 0.3); }
+        .stepper { display: flex; justify-content: space-between; align-items: center; background: rgba(8, 11, 16, 0.5); border-radius: 8px; padding: 4px; border: 1px solid var(--gold-dark); }
+        .step-btn { background: var(--gold-liquid); border: none; color: #080B10; width: 32px; height: 32px; font-size: 18px; font-weight: bold; border-radius: 6px; cursor: pointer; }
         .step-count { color: var(--text-ivory); }
-        
-        .badge-off {
-            position: absolute; top: 10px; left: 10px;
-            background: var(--gold-rich); color: #080B10;
-            font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 4px;
-            z-index: 10; letter-spacing: 1px;
-        }
-
-        /* FOOTER */
-        .footer {
-            margin-top: 60px; padding: 50px 25px 150px; 
-            background: #05070A; border-top: 3px solid var(--gold-dark);
-            text-align: center; position: relative;
-        }
-        .footer::before {
-            content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 100px; height: 30px; background: var(--gold-liquid);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-        }
+        .badge-off { position: absolute; top: 10px; left: 10px; background: var(--gold-rich); color: #080B10; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 4px; z-index: 10; letter-spacing: 1px; }
+        .footer { margin-top: 60px; padding: 50px 25px 150px; background: #05070A; border-top: 3px solid var(--gold-dark); text-align: center; position: relative; }
+        .footer::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; background: var(--gold-liquid); clip-path: polygon(0 0, 100% 0, 50% 100%); }
         .f-brand { font-family: 'Cinzel Decorative', cursive; font-size: 26px; color: var(--gold-rich); margin-bottom: 15px; font-style: normal; }
-        .contact-box {
-            background: rgba(17, 22, 32, 0.8); border: 1px solid var(--gold-rich); padding: 25px;
-            border-radius: 16px; margin-bottom: 30px; text-align: left; display: block; width: auto; max-width: none;
-        }
-        
-        /* BOTTOM BAR */
-        .bottom-bar {
-            position: fixed; bottom: 25px; left: 20px; right: 20px;
-            background: rgba(17, 22, 32, 0.95); backdrop-filter: blur(20px);
-            padding: 15px 25px; border-radius: 12px;
-            border: 1px solid var(--gold-rich);
-            display: none; justify-content: space-between; align-items: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6), var(--gold-glow);
-            z-index: 999; cursor: pointer; animation: floatUp 0.4s ease;
-        }
+        .contact-box { background: rgba(17, 22, 32, 0.8); border: 1px solid var(--gold-rich); padding: 25px; border-radius: 16px; margin-bottom: 30px; text-align: left; display: block; width: auto; max-width: none; }
+        .bottom-bar { position: fixed; bottom: 25px; left: 20px; right: 20px; background: rgba(17, 22, 32, 0.95); backdrop-filter: blur(20px); padding: 15px 25px; border-radius: 12px; border: 1px solid var(--gold-rich); display: none; justify-content: space-between; align-items: center; box-shadow: 0 15px 40px rgba(0,0,0,0.6), var(--gold-glow); z-index: 999; cursor: pointer; animation: floatUp 0.4s ease; }
         @keyframes floatUp { from { transform: translateY(100px); } to { transform: translateY(0); } }
-
-        .view-cart-btn {
-            background: var(--gold-liquid); color: #080B10;
-            padding: 10px 24px; border-radius: 6px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        /* DRAWER & MODALS */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000;
-            display: none; backdrop-filter: blur(5px);
-        }
-        .drawer {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: var(--bg-surface); 
-            border-top-left-radius: 24px; border-top-right-radius: 24px;
-            padding: 30px; z-index: 1001; transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
-            border-top: 4px solid var(--gold-rich);
-            max-height: 85vh; overflow-y: auto;
-        }
+        .view-cart-btn { background: var(--gold-liquid); color: #080B10; padding: 10px 24px; border-radius: 6px; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: none; backdrop-filter: blur(5px); }
+        .drawer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-surface); border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 30px; z-index: 1001; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1); border-top: 4px solid var(--gold-rich); max-height: 85vh; overflow-y: auto; }
         .drawer.open { transform: translateY(0); }
         .modal-overlay.open { display: block; }
-        
-        .wa-checkout {
-            display: block; background: var(--gold-liquid); color: #080B10; text-align: center;
-            padding: 18px; border-radius: 10px; text-decoration: none; font-weight: 800; margin-top: 30px;
-            font-size: 15px; text-transform: uppercase; letter-spacing: 2px; border: none; width: 100%; cursor: pointer;
-        }
+        .wa-checkout { display: block; background: var(--gold-liquid); color: #080B10; text-align: center; padding: 18px; border-radius: 10px; text-decoration: none; font-weight: 800; margin-top: 30px; font-size: 15px; text-transform: uppercase; letter-spacing: 2px; border: none; width: 100%; cursor: pointer; }
         .cart-list-item { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid rgba(203, 161, 85, 0.2); align-items: center; }
         .header a { color: var(--gold-rich); font-size: 24px; text-decoration: none; }
-
-        /* --- 🏛️ CHECKOUT MODAL --- */
-        .checkout-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; 
-            background: rgba(0, 0, 0, 0.85); z-index: 3000; align-items: flex-end; justify-content: center;
-            backdrop-filter: blur(8px); transition: opacity 0.3s ease;
-        }
+        
+        .checkout-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; background: rgba(0, 0, 0, 0.85); z-index: 3000; align-items: flex-end; justify-content: center; backdrop-filter: blur(8px); transition: opacity 0.3s ease; }
         @media (min-width: 768px) { .checkout-overlay { align-items: center; } }
-
-        .checkout-container {
-            background: var(--bg-surface); width: 100%; max-width: 520px; height: 90vh; 
-            border-radius: 24px 24px 0 0; border-top: 4px solid var(--gold-rich);
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.5); position: relative;
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column;
-            color: var(--text-ivory);
-        }
-        @media (min-width: 768px) {
-            .checkout-container { height: auto; max-height: 85vh; border-radius: 24px; animation: popIn 0.3s; }
-        }
-
-        .checkout-header {
-            background: var(--bg-deep); border-bottom: 1px solid rgba(203, 161, 85, 0.3);
-            padding: 20px 25px; border-radius: 20px 20px 0 0; display: flex; justify-content: space-between; align-items: center;
-        }
+        .checkout-container { background: var(--bg-surface); width: 100%; max-width: 520px; height: 90vh; border-radius: 24px 24px 0 0; border-top: 4px solid var(--gold-rich); box-shadow: 0 -10px 40px rgba(0,0,0,0.5); position: relative; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; color: var(--text-ivory); }
+        @media (min-width: 768px) { .checkout-container { height: auto; max-height: 85vh; border-radius: 24px; animation: popIn 0.3s; } }
+        .checkout-header { background: var(--bg-deep); border-bottom: 1px solid rgba(203, 161, 85, 0.3); padding: 20px 25px; border-radius: 20px 20px 0 0; display: flex; justify-content: space-between; align-items: center; }
         .checkout-title { font-family: 'Cinzel Decorative', cursive; font-size: 1.3rem; color: var(--gold-rich); margin: 0; }
         .checkout-close { background: transparent; border: 1px solid var(--gold-rich); color: var(--gold-rich); width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-
         .checkout-body { padding: 25px; padding-bottom: 100px; overflow-y: auto; flex-grow: 1; }
         .checkout-step { display: none; animation: fadeIn 0.3s; }
         .checkout-step.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
         .step-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 20px; color: var(--gold-light); display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(203, 161, 85, 0.2); }
         .step-title .step-number { background: var(--gold-liquid); color: #080B10; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: bold; }
-
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-gold-mute); margin-bottom: 8px; }
-        .form-input {
-            width: 100%; padding: 14px 16px; border: 1px solid rgba(203, 161, 85, 0.3);
-            border-radius: 12px; font-size: 1rem; background: rgba(17, 22, 32, 0.6); color: var(--text-ivory);
-            font-family: inherit; transition: all 0.2s;
-        }
+        .form-input { width: 100%; padding: 14px 16px; border: 1px solid rgba(203, 161, 85, 0.3); border-radius: 12px; font-size: 1rem; background: rgba(17, 22, 32, 0.6); color: var(--text-ivory); font-family: inherit; transition: all 0.2s; }
         .form-input:focus { outline: none; border-color: var(--gold-rich); background: var(--bg-deep); }
         .address-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
         .payment-options { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .payment-option {
-            border: 1px solid var(--gold-rich); border-radius: 16px; padding: 18px;
-            display: flex; align-items: center; gap: 15px;
-            background: rgba(203, 161, 85, 0.1); /* Always selected state */
-        }
+        .payment-option { border: 1px solid var(--gold-rich); border-radius: 16px; padding: 18px; display: flex; align-items: center; gap: 15px; background: rgba(203, 161, 85, 0.1); }
         .payment-radio { width: 22px; height: 22px; accent-color: var(--gold-rich); }
         .payment-icon { font-size: 1.6rem; width: 48px; height: 48px; background: var(--bg-surface); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(203,161,85,0.2); }
         .payment-title { font-weight: 700; font-size: 1rem; color: var(--text-ivory); }
         .payment-desc { font-size: 0.8rem; color: var(--text-gold-mute); margin-top: 3px; }
-
-        /* UPI APP GRID STYLING */
         .upi-details { margin-top: 25px; display: block; animation: fadeIn 0.4s; }
         .upi-intent-box { background: var(--bg-deep); border: 1px solid rgba(203, 161, 85, 0.2); border-radius: 16px; padding: 25px 20px; text-align: center; }
         .intent-msg { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
         .intent-sub { font-size: 0.9rem; color: var(--text-gold-mute); margin-bottom: 20px; }
-        
         .upi-app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .upi-app-btn {
-            background: rgba(17, 22, 32, 0.6); border: 1px solid rgba(203, 161, 85, 0.3);
-            color: var(--text-ivory); padding: 14px 10px; border-radius: 10px; font-weight: 700;
-            font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-            transition: all 0.2s; font-family: inherit;
-        }
+        .upi-app-btn { background: rgba(17, 22, 32, 0.6); border: 1px solid rgba(203, 161, 85, 0.3); color: var(--text-ivory); padding: 14px 10px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; font-family: inherit; }
         .upi-app-btn:active { transform: scale(0.96); border-color: var(--gold-rich); background: rgba(203, 161, 85, 0.15); }
         .app-icon { font-size: 1.2rem; }
-
         .payment-confirm-screen { display: none; text-align: center; padding: 20px 0; background: rgba(203, 161, 85, 0.05); border-radius: 16px; border: 1px dashed var(--gold-rich); }
         .payment-confirm-screen.active { display: block; }
         .spinner { width: 40px; height: 40px; border: 4px solid rgba(203, 161, 85, 0.3); border-top: 4px solid var(--gold-rich); border-radius: 50%; margin: 0 auto 15px auto; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         .order-summary { background: var(--bg-deep); border-radius: 16px; padding: 20px; margin-top: 25px; border: 1px solid rgba(203, 161, 85, 0.2); }
         .summary-title { font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: var(--gold-light); text-transform: uppercase; }
         .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; border-bottom: 1px dashed rgba(203, 161, 85, 0.3); color: var(--text-ivory); }
         .summary-row:last-child { border-bottom: none; font-weight: 800; font-size: 1.2rem; color: var(--gold-rich); padding-top: 15px; }
-
-        .checkout-footer {
-            background: var(--bg-surface); padding: 15px 25px; border-top: 1px solid rgba(203, 161, 85, 0.2);
-            display: flex; justify-content: space-between; gap: 15px; position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 24px 24px;
-        }
+        .checkout-footer { background: var(--bg-surface); padding: 15px 25px; border-top: 1px solid rgba(203, 161, 85, 0.2); display: flex; justify-content: space-between; gap: 15px; position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 24px 24px; }
         .btn-back { background: transparent; color: var(--text-ivory); border: 1px solid var(--gold-rich); padding: 14px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; flex: 1; }
         .btn-next, .btn-pay-intent { background: var(--gold-liquid); color: #080B10; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 800; cursor: pointer; flex: 1.5; text-transform: uppercase; letter-spacing: 1px; width:100%; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        
         .success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 4000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
         .success-content { background: var(--bg-surface); width: 100%; max-width: 400px; border-radius: 24px; padding: 35px 25px; text-align: center; border: 2px solid var(--gold-rich); }
         .success-icon { font-size: 4rem; margin-bottom: 15px; display: block; }
         .success-title { font-family: 'Cinzel Decorative', cursive; font-size: 1.5rem; color: var(--gold-rich); margin-bottom: 10px; }
         .order-id { background: rgba(203, 161, 85, 0.1); padding: 15px; border-radius: 12px; font-weight: 700; color: var(--gold-light); margin-bottom: 25px; border: 1px dashed var(--gold-rich); }
-
     </style>
 </head>
 <body>
@@ -369,37 +182,19 @@
             </div>
             
             <form id="checkoutForm" onsubmit="return false;" class="checkout-body">
-                
                 <div class="checkout-step active" id="step1">
                     <div class="step-title"><span class="step-number">1</span> Delivery Details</div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Full Name *</label>
-                        <input type="text" class="form-input" id="fullName" required placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Mobile Number *</label>
-                        <input type="tel" class="form-input" id="mobileNumber" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
-                    </div>
+                    <div class="form-group"><label class="form-label">Full Name *</label><input type="text" class="form-input" id="fullName" required placeholder="Enter your full name"></div>
+                    <div class="form-group"><label class="form-label">Mobile Number *</label><input type="tel" class="form-input" id="mobileNumber" required placeholder="10-digit mobile number" pattern="[0-9]{10}"></div>
                     <div class="address-grid">
-                        <div class="form-group">
-                            <label class="form-label">Pincode *</label>
-                            <input type="tel" class="form-input" id="pincode" required placeholder="6-digit pincode" pattern="[0-9]{6}">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">City *</label>
-                            <input type="text" class="form-input" id="city" required placeholder="Your city">
-                        </div>
+                        <div class="form-group"><label class="form-label">Pincode *</label><input type="tel" class="form-input" id="pincode" required placeholder="6-digit pincode" pattern="[0-9]{6}"></div>
+                        <div class="form-group"><label class="form-label">City *</label><input type="text" class="form-input" id="city" required placeholder="Your city"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Full Address *</label>
-                        <textarea class="form-input" id="fullAddress" required rows="2" placeholder="House no., Building, Street"></textarea>
-                    </div>
+                    <div class="form-group"><label class="form-label">Full Address *</label><textarea class="form-input" id="fullAddress" required rows="2" placeholder="House no., Building, Street"></textarea></div>
                 </div>
                 
                 <div class="checkout-step" id="step2">
                     <div class="step-title"><span class="step-number">2</span> Payment Method</div>
-                    
                     <div class="payment-options">
                         <div class="payment-option">
                             <input type="radio" class="payment-radio" name="payment" id="upiRadio" value="upi" checked>
@@ -415,23 +210,13 @@
                         <div id="upiInitialState" class="upi-intent-box">
                             <div class="intent-msg">Pay <span id="intentAmountDisplay" style="color:var(--gold-light);">₹0</span> securely</div>
                             <div class="intent-sub">Select your preferred app to complete payment</div>
-                            
                             <div class="upi-app-grid">
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('gpay')">
-                                    <span class="app-icon" style="color:#4285F4;">G</span> GPay
-                                </button>
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('phonepe')">
-                                    <span class="app-icon" style="color:#5f259f;">पे</span> PhonePe
-                                </button>
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('paytm')">
-                                    <span class="app-icon" style="color:#00B9F1;">P</span> Paytm
-                                </button>
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('generic')">
-                                    <span class="app-icon">⚡</span> Other Apps
-                                </button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('gpay')"><span class="app-icon" style="color:#4285F4;">G</span> GPay</button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('phonepe')"><span class="app-icon" style="color:#5f259f;">पे</span> PhonePe</button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('paytm')"><span class="app-icon" style="color:#00B9F1;">P</span> Paytm</button>
+                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('generic')"><span class="app-icon">⚡</span> Other Apps</button>
                             </div>
                         </div>
-
                         <div id="upiConfirmState" class="payment-confirm-screen">
                             <div class="spinner"></div>
                             <div style="font-weight:bold; color:var(--gold-light); margin-bottom:10px;">Waiting for Payment...</div>
@@ -471,44 +256,38 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        const firebaseConfig = {
-          apiKey: "AIzaSyASKtPdTQCs-iQC85bSwg5eKeRdmvpXwWA",
-          authDomain: "colaba-store.firebaseapp.com",
-          databaseURL: "https://colaba-store-default-rtdb.asia-southeast1.firebasedatabase.app",
-          projectId: "colaba-store",
-          storageBucket: "colaba-store.firebasestorage.app",
-          messagingSenderId: "896100208482",
-          appId: "1:896100208482:web:ac14a73c080a85f839e63b"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwBXxw_RhA9crHbxy2JbF8GiBivt82pgqpIN2sO1EkCU0WuKVw51mGnB9-g7ZcIQwnP/exec';
         
         let allProducts = [];
         window.cart = {}; 
-        
-        // CHANGED: WhatsApp number updated here for logic
         const myPhone = "917028808916";
 
-        get(child(ref(db), 'products')).then((snapshot) => {
+        window.onload = function() {
+            fetchProducts();
+        };
+
+        function fetchProducts() {
             const grid = document.getElementById('productGrid');
-            grid.innerHTML = "";
-            if (snapshot.exists()) {
-                allProducts = Object.entries(snapshot.val()).map(([k, v]) => ({ ...v, id: k })).reverse();
-                window.allProducts = allProducts;
-                renderProducts(allProducts);
-                
-                if(localStorage.getItem('colaba_payment_pending')) {
-                    restoreSession();
+            fetch(scriptURL)
+            .then(r => r.json())
+            .then(data => {
+                grid.innerHTML = "";
+                if (data && data.length > 0) {
+                    allProducts = data.reverse();
+                    window.allProducts = allProducts;
+                    renderProducts(allProducts);
+                    if(localStorage.getItem('colaba_payment_pending')) {
+                        restoreSession();
+                    }
+                } else {
+                    grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Collection is empty.</p>";
                 }
-            } else {
-                grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Collection is empty.</p>";
-            }
-        });
+            })
+            .catch(e => {
+                grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Failed to load collection.</p>";
+            });
+        }
 
         window.renderProducts = function(list) {
             const grid = document.getElementById('productGrid');
@@ -564,7 +343,7 @@
         function updateTotal() {
             let count = 0, price = 0;
             Object.keys(window.cart).forEach(k => {
-                let p = allProducts.find(x => x.id === k);
+                let p = allProducts.find(x => x.id == k);
                 if(p) { count += window.cart[k]; price += p.price * window.cart[k]; }
             });
             document.getElementById('totalCount').innerText = count;
@@ -572,20 +351,13 @@
             document.getElementById('bottomBar').style.display = count > 0 ? 'flex' : 'none';
         }
 
-        window.openCart = function() {
-            renderCartList();
-            document.getElementById('overlay').classList.add('open');
-            document.getElementById('cartDrawer').classList.add('open');
-        }
-        window.closeCart = function() {
-            document.getElementById('overlay').classList.remove('open');
-            document.getElementById('cartDrawer').classList.remove('open');
-        }
+        window.openCart = function() { renderCartList(); document.getElementById('overlay').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); }
+        window.closeCart = function() { document.getElementById('overlay').classList.remove('open'); document.getElementById('cartDrawer').classList.remove('open'); }
 
         function renderCartList() {
             let html = "", total = 0;
             Object.keys(window.cart).forEach(k => {
-                let p = allProducts.find(x => x.id === k);
+                let p = allProducts.find(x => x.id == k);
                 if(p) {
                     let cost = p.price * window.cart[k];
                     total += cost;
@@ -604,19 +376,12 @@
                 }
             });
             document.getElementById('cartListHTML').innerHTML = html || "<p style='color:var(--text-gold-mute); text-align:center;'>Your bag is empty.</p>";
-            
             let btn = document.getElementById('checkoutBtn');
-            if(total > 0) {
-                btn.style.display = 'block';
-                btn.innerText = `Proceed to Checkout (₹${total})`;
-            } else {
-                btn.style.display = 'none';
-            }
+            if(total > 0) { btn.style.display = 'block'; btn.innerText = `Proceed to Checkout (₹${total})`; } else { btn.style.display = 'none'; }
         }
 
         window.filterCat = function(c, b) {
-            document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-            b.classList.add('active');
+            document.querySelectorAll('.chip').forEach(x => x.classList.remove('active')); b.classList.add('active');
             renderProducts(c === 'all' ? allProducts : allProducts.filter(x => x.category === c));
         }
         
@@ -625,18 +390,13 @@
             renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
         });
         
-        const upiConfig = {
-            pa: 'shahidsheikh28@ybl', 
-            pn: 'Colaba Store',          
-            cu: 'INR'                    
-        };
-        
+        const upiConfig = { pa: 'shahidsheikh28@ybl', pn: 'Colaba Store', cu: 'INR' };
         let orderData = {};
 
         window.getCartTotalAmount = function() {
             let total = 0;
             Object.keys(window.cart).forEach(k => {
-                let p = window.allProducts.find(x => x.id === k);
+                let p = window.allProducts.find(x => x.id == k);
                 if(p) total += p.price * window.cart[k];
             });
             return total;
@@ -647,152 +407,85 @@
             let total = getCartTotalAmount();
             document.getElementById('summaryTotal').innerText = `₹${total}`;
             document.getElementById('intentAmountDisplay').innerText = `₹${total}`;
-            
             document.getElementById('checkoutModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('footerStep1').style.display = 'flex';
-            document.getElementById('footerStep2').style.display = 'none';
-            
-            // Reset UPI Flow just in case
-            document.getElementById('upiInitialState').style.display = 'block';
-            document.getElementById('upiConfirmState').classList.remove('active');
+            document.getElementById('step1').classList.add('active'); document.getElementById('step2').classList.remove('active');
+            document.getElementById('footerStep1').style.display = 'flex'; document.getElementById('footerStep2').style.display = 'none';
+            document.getElementById('upiInitialState').style.display = 'block'; document.getElementById('upiConfirmState').classList.remove('active');
         }
 
-        window.closeCheckoutModal = function() {
-            document.getElementById('checkoutModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+        window.closeCheckoutModal = function() { document.getElementById('checkoutModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
         window.goToStep = function(step) {
             const form = document.getElementById('checkoutForm');
             if (step === 2) {
                 if (!form.reportValidity()) return;
                 orderData.address = {
-                    name: document.getElementById('fullName').value.trim(),
-                    mobile: document.getElementById('mobileNumber').value.trim(),
-                    pincode: document.getElementById('pincode').value.trim(),
-                    city: document.getElementById('city').value.trim(),
+                    name: document.getElementById('fullName').value.trim(), mobile: document.getElementById('mobileNumber').value.trim(),
+                    pincode: document.getElementById('pincode').value.trim(), city: document.getElementById('city').value.trim(),
                     fullAddress: document.getElementById('fullAddress').value.trim()
                 };
-                document.getElementById('footerStep1').style.display = 'none';
-                document.getElementById('footerStep2').style.display = 'flex';
+                document.getElementById('footerStep1').style.display = 'none'; document.getElementById('footerStep2').style.display = 'flex';
             } else {
-                document.getElementById('footerStep1').style.display = 'flex';
-                document.getElementById('footerStep2').style.display = 'none';
+                document.getElementById('footerStep1').style.display = 'flex'; document.getElementById('footerStep2').style.display = 'none';
             }
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.remove('active'); document.getElementById('step2').classList.remove('active');
             document.getElementById('step' + step).classList.add('active');
         }
 
         window.payWithUPIApp = function(appId) {
             const totalAmount = getCartTotalAmount();
             const trxnId = 'CS' + Date.now();
-            
             const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
             localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
 
             let params = `pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
             let deepLink = `upi://pay?${params}`; 
-            
-            if (appId === 'gpay') {
-                deepLink = `tez://upi/pay?${params}`;
-            } else if (appId === 'phonepe') {
-                deepLink = `phonepe://pay?${params}`;
-            } else if (appId === 'paytm') {
-                deepLink = `paytmmp://pay?${params}`;
-            }
+            if (appId === 'gpay') deepLink = `tez://upi/pay?${params}`;
+            else if (appId === 'phonepe') deepLink = `phonepe://pay?${params}`;
+            else if (appId === 'paytm') deepLink = `paytmmp://pay?${params}`;
 
             window.location.href = deepLink;
-            
-            document.getElementById('upiInitialState').style.display = 'none';
-            document.getElementById('upiConfirmState').classList.add('active');
+            document.getElementById('upiInitialState').style.display = 'none'; document.getElementById('upiConfirmState').classList.add('active');
         }
 
-        window.resetUPIFlow = function() {
-            localStorage.removeItem('colaba_payment_pending');
-            document.getElementById('upiInitialState').style.display = 'block';
-            document.getElementById('upiConfirmState').classList.remove('active');
-        }
+        window.resetUPIFlow = function() { localStorage.removeItem('colaba_payment_pending'); document.getElementById('upiInitialState').style.display = 'block'; document.getElementById('upiConfirmState').classList.remove('active'); }
 
-        window.completeUPIPayment = function() {
-            localStorage.removeItem('colaba_payment_pending');
-            finalizeOrder();
-        }
+        window.completeUPIPayment = function() { localStorage.removeItem('colaba_payment_pending'); finalizeOrder(); }
 
-        // CHANGED: finalizeOrder now only handles UPI since COD is removed
         window.finalizeOrder = function() {
             const orderId = 'CS' + Date.now().toString().slice(-6);
             document.getElementById('orderIdTag').innerText = orderId;
-            
             const addr = orderData.address;
             const total = getCartTotalAmount();
             
-            // CHANGED: Header Text updated
-            let message = `*👑 NEW COLABA ORDER - Colaba Store*\n`;
-            message += `━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `🆔 *Order ID:* ${orderId}\n\n`;
-            
-            message += `🛒 *ORDER DETAILS:*\n`;
+            let message = `*👑 NEW COLABA ORDER - Colaba Store*\\n━━━━━━━━━━━━━━━━━━━━\\n🆔 *Order ID:* ${orderId}\\n\\n🛒 *ORDER DETAILS:*\\n`;
             Object.keys(window.cart).forEach(k => {
-                let p = window.allProducts.find(x => x.id === k);
-                if(p) {
-                    message += `▪️ ${p.name} (x${window.cart[k]}) - ₹${p.price * window.cart[k]}\n`;
-                }
+                let p = window.allProducts.find(x => x.id == k);
+                if(p) message += `▪️ ${p.name} (x${window.cart[k]}) - ₹${p.price * window.cart[k]}\\n`;
             });
-            message += `\n💰 *TOTAL AMOUNT: ₹${total}*\n\n`;
+            message += `\\n💰 *TOTAL AMOUNT: ₹${total}*\\n\\n💳 *PAYMENT STATUS:*\\n✅ *PAID VIA UPI APP*\\n⚠️ *Please check bank for ₹${total}*\\n\\n━━━━━━━━━━━━━━━━━━━━\\n📍 *DELIVERY ADDRESS:*\\n👤 ${addr.name}\\n📱 ${addr.mobile}\\n📍 ${addr.fullAddress}\\n🏙️ ${addr.city} - ${addr.pincode}\\n`;
             
-            message += `💳 *PAYMENT STATUS:*\n`;
-            message += `✅ *PAID VIA UPI APP*\n⚠️ *Please check bank for ₹${total}*\n`;
-            
-            message += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-            message += `📍 *DELIVERY ADDRESS:*\n👤 ${addr.name}\n📱 ${addr.mobile}\n📍 ${addr.fullAddress}\n🏙️ ${addr.city} - ${addr.pincode}\n`;
-            
-            const encodedMsg = encodeURIComponent(message);
-            // CHANGED: WhatsApp number updated here for the final message
-            const whatsappUrl = `https://wa.me/917028808916?text=${encodedMsg}`;
-            
-            setTimeout(() => { window.open(whatsappUrl, '_blank'); }, 500);
-            
-            closeCheckoutModal();
-            document.getElementById('successModal').style.display = 'flex';
+            setTimeout(() => { window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(message)}`, '_blank'); }, 500);
+            closeCheckoutModal(); document.getElementById('successModal').style.display = 'flex';
         }
 
-        window.closeSuccessModal = function() {
-            document.getElementById('successModal').style.display = 'none';
-            window.cart = {}; 
-            updateTotal();
-            renderProducts(window.allProducts); 
-        }
+        window.closeSuccessModal = function() { document.getElementById('successModal').style.display = 'none'; window.cart = {}; updateTotal(); renderProducts(window.allProducts); }
 
         function restoreSession() {
             try {
                 const data = JSON.parse(localStorage.getItem('colaba_payment_pending'));
                 if (data.paymentStarted && data.cart) {
-                    window.cart = data.cart;
-                    updateTotal();
-                    renderProducts(window.allProducts);
-                    
+                    window.cart = data.cart; updateTotal(); renderProducts(window.allProducts);
                     if (data.address) {
-                        document.getElementById('fullName').value = data.address.name || '';
-                        document.getElementById('mobileNumber').value = data.address.mobile || '';
-                        document.getElementById('pincode').value = data.address.pincode || '';
-                        document.getElementById('city').value = data.address.city || '';
-                        document.getElementById('fullAddress').value = data.address.fullAddress || '';
-                        orderData.address = data.address;
+                        document.getElementById('fullName').value = data.address.name || ''; document.getElementById('mobileNumber').value = data.address.mobile || '';
+                        document.getElementById('pincode').value = data.address.pincode || ''; document.getElementById('city').value = data.address.city || '';
+                        document.getElementById('fullAddress').value = data.address.fullAddress || ''; orderData.address = data.address;
                     }
-                    
-                    initiateCheckout();
-                    goToStep(2);
-                    document.getElementById('upiInitialState').style.display = 'none';
-                    document.getElementById('upiConfirmState').classList.add('active');
+                    initiateCheckout(); goToStep(2);
+                    document.getElementById('upiInitialState').style.display = 'none'; document.getElementById('upiConfirmState').classList.add('active');
                 }
-            } catch (e) {
-                localStorage.removeItem('colaba_payment_pending');
-            }
+            } catch (e) { localStorage.removeItem('colaba_payment_pending'); }
         }
     </script>
 </body>
