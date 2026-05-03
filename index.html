@@ -230,6 +230,8 @@
                     
                     <div class="order-summary">
                         <div class="summary-title">Bill Details</div>
+                        <div class="summary-row"><span>Items Total</span><span id="summaryItemsTotal">₹0</span></div>
+                        <div class="summary-row"><span>Delivery Fee</span><span id="summaryDelivery">₹0</span></div>
                         <div class="summary-row"><span>Total Payable</span><span id="summaryTotal">₹0</span></div>
                     </div>
                 </div>
@@ -320,6 +322,25 @@
             });
         }
 
+        function getCartDetails() {
+            let itemsTotal = 0;
+            let totalQty = 0;
+            Object.keys(window.cart).forEach(k => {
+                let p = window.allProducts.find(x => x.id == k);
+                if(p) {
+                    itemsTotal += p.price * window.cart[k];
+                    totalQty += window.cart[k];
+                }
+            });
+            
+            let deliveryFee = 0;
+            if (totalQty > 0) {
+                deliveryFee = 200 + ((totalQty - 1) * 75);
+            }
+            
+            return { itemsTotal, deliveryFee, grandTotal: itemsTotal + deliveryFee, totalQty };
+        }
+
         window.updateQty = function(id, change) {
             if(!window.cart[id]) window.cart[id] = 0;
             window.cart[id] += change;
@@ -341,26 +362,22 @@
         }
 
         function updateTotal() {
-            let count = 0, price = 0;
-            Object.keys(window.cart).forEach(k => {
-                let p = allProducts.find(x => x.id == k);
-                if(p) { count += window.cart[k]; price += p.price * window.cart[k]; }
-            });
-            document.getElementById('totalCount').innerText = count;
-            document.getElementById('totalPrice').innerText = `₹${price}`;
-            document.getElementById('bottomBar').style.display = count > 0 ? 'flex' : 'none';
+            let details = getCartDetails();
+            document.getElementById('totalCount').innerText = details.totalQty;
+            // CHANGED: Now bottom bar only shows Items Total
+            document.getElementById('totalPrice').innerText = `₹${details.itemsTotal}`;
+            document.getElementById('bottomBar').style.display = details.totalQty > 0 ? 'flex' : 'none';
         }
 
         window.openCart = function() { renderCartList(); document.getElementById('overlay').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); }
         window.closeCart = function() { document.getElementById('overlay').classList.remove('open'); document.getElementById('cartDrawer').classList.remove('open'); }
 
         function renderCartList() {
-            let html = "", total = 0;
+            let html = "";
+            let details = getCartDetails();
             Object.keys(window.cart).forEach(k => {
                 let p = allProducts.find(x => x.id == k);
                 if(p) {
-                    let cost = p.price * window.cart[k];
-                    total += cost;
                     html += `
                     <div class="cart-list-item">
                         <div>
@@ -375,9 +392,29 @@
                     </div>`;
                 }
             });
+
+            // NEW: Adding Bill Breakdown strictly inside the Bag/Drawer
+            if(details.totalQty > 0) {
+                html += `
+                <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px solid rgba(203, 161, 85, 0.2);">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px; color:var(--text-ivory);">
+                        <span>Items Total</span>
+                        <span>₹${details.itemsTotal}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px; color:var(--text-ivory);">
+                        <span>Delivery Fee</span>
+                        <span style="color:var(--gold-light);">+ ₹${details.deliveryFee}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:bold; color:var(--gold-rich); margin-top:12px; border-top: 1px dashed rgba(203, 161, 85, 0.3); padding-top: 12px;">
+                        <span>Grand Total</span>
+                        <span>₹${details.grandTotal}</span>
+                    </div>
+                </div>`;
+            }
+
             document.getElementById('cartListHTML').innerHTML = html || "<p style='color:var(--text-gold-mute); text-align:center;'>Your bag is empty.</p>";
             let btn = document.getElementById('checkoutBtn');
-            if(total > 0) { btn.style.display = 'block'; btn.innerText = `Proceed to Checkout (₹${total})`; } else { btn.style.display = 'none'; }
+            if(details.totalQty > 0) { btn.style.display = 'block'; btn.innerText = `Proceed to Checkout (₹${details.grandTotal})`; } else { btn.style.display = 'none'; }
         }
 
         window.filterCat = function(c, b) {
@@ -393,20 +430,13 @@
         const upiConfig = { pa: 'shahidsheikh28@ybl', pn: 'Colaba Store', cu: 'INR' };
         let orderData = {};
 
-        window.getCartTotalAmount = function() {
-            let total = 0;
-            Object.keys(window.cart).forEach(k => {
-                let p = window.allProducts.find(x => x.id == k);
-                if(p) total += p.price * window.cart[k];
-            });
-            return total;
-        }
-
         window.initiateCheckout = function() {
             closeCart();
-            let total = getCartTotalAmount();
-            document.getElementById('summaryTotal').innerText = `₹${total}`;
-            document.getElementById('intentAmountDisplay').innerText = `₹${total}`;
+            let details = getCartDetails();
+            document.getElementById('summaryItemsTotal').innerText = `₹${details.itemsTotal}`;
+            document.getElementById('summaryDelivery').innerText = `₹${details.deliveryFee}`;
+            document.getElementById('summaryTotal').innerText = `₹${details.grandTotal}`;
+            document.getElementById('intentAmountDisplay').innerText = `₹${details.grandTotal}`;
             document.getElementById('checkoutModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
             document.getElementById('step1').classList.add('active'); document.getElementById('step2').classList.remove('active');
@@ -434,7 +464,8 @@
         }
 
         window.payWithUPIApp = function(appId) {
-            const totalAmount = getCartTotalAmount();
+            const details = getCartDetails();
+            const totalAmount = details.grandTotal;
             const trxnId = 'CS' + Date.now();
             const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
             localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
@@ -457,14 +488,16 @@
             const orderId = 'CS' + Date.now().toString().slice(-6);
             document.getElementById('orderIdTag').innerText = orderId;
             const addr = orderData.address;
-            const total = getCartTotalAmount();
+            const details = getCartDetails();
             
             let message = `*👑 NEW COLABA ORDER - Colaba Store*\\n━━━━━━━━━━━━━━━━━━━━\\n🆔 *Order ID:* ${orderId}\\n\\n🛒 *ORDER DETAILS:*\\n`;
             Object.keys(window.cart).forEach(k => {
                 let p = window.allProducts.find(x => x.id == k);
                 if(p) message += `▪️ ${p.name} (x${window.cart[k]}) - ₹${p.price * window.cart[k]}\\n`;
             });
-            message += `\\n💰 *TOTAL AMOUNT: ₹${total}*\\n\\n💳 *PAYMENT STATUS:*\\n✅ *PAID VIA UPI APP*\\n⚠️ *Please check bank for ₹${total}*\\n\\n━━━━━━━━━━━━━━━━━━━━\\n📍 *DELIVERY ADDRESS:*\\n👤 ${addr.name}\\n📱 ${addr.mobile}\\n📍 ${addr.fullAddress}\\n🏙️ ${addr.city} - ${addr.pincode}\\n`;
+            message += `\\n📦 *Items Total: ₹${details.itemsTotal}*`;
+            message += `\\n🚚 *Delivery Fee: ₹${details.deliveryFee}*`;
+            message += `\\n💰 *GRAND TOTAL: ₹${details.grandTotal}*\\n\\n💳 *PAYMENT STATUS:*\\n✅ *PAID VIA UPI APP*\\n⚠️ *Please check bank for ₹${details.grandTotal}*\\n\\n━━━━━━━━━━━━━━━━━━━━\\n📍 *DELIVERY ADDRESS:*\\n👤 ${addr.name}\\n📱 ${addr.mobile}\\n📍 ${addr.fullAddress}\\n🏙️ ${addr.city} - ${addr.pincode}\\n`;
             
             setTimeout(() => { window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(message)}`, '_blank'); }, 500);
             closeCheckoutModal(); document.getElementById('successModal').style.display = 'flex';
