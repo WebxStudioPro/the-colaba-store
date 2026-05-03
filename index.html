@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="google-site-verification" content="87zIiOu8V4ybkIjdxacQm0x9CX2RwrOvYJRU8v_ZYp4" />
+    
+    <meta name="description" content="Discover The Colaba Store in Nagpur. Shop our Royal Edition collection of premium shoes, men's and ladies' fashion, watches, and tech gadgets." />
+    <meta name="keywords" content="colaba store, colaba store nagpur, the colaba store, luxury fashion nagpur, premium shoes nagpur, royal edition clothing, colaba store online" />
+    
+    <meta property="og:site_name" content="Colaba Store" />
+    <meta property="og:title" content="The Colaba Store | Royal Edition" />
+    <meta property="og:description" content="Shop at The Colaba Store Nagpur for premium luxury items, fashion, and gadgets." />
+    <meta property="og:type" content="website" />
+    
+    <link rel="icon" href="favicon.png" type="image/png" />
+
     <title>The Colaba Store | Royal Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -364,7 +377,6 @@
         function updateTotal() {
             let details = getCartDetails();
             document.getElementById('totalCount').innerText = details.totalQty;
-            // CHANGED: Now bottom bar only shows Items Total
             document.getElementById('totalPrice').innerText = `₹${details.itemsTotal}`;
             document.getElementById('bottomBar').style.display = details.totalQty > 0 ? 'flex' : 'none';
         }
@@ -393,7 +405,6 @@
                 }
             });
 
-            // NEW: Adding Bill Breakdown strictly inside the Bag/Drawer
             if(details.totalQty > 0) {
                 html += `
                 <div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px solid rgba(203, 161, 85, 0.2);">
