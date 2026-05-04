@@ -438,7 +438,8 @@
             renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
         });
         
-        const upiConfig = { pa: 'shahidsheikh28@ybl', pn: 'Colaba Store', cu: 'INR' };
+        // CHANGED: Yahan BharatPe UPI ID aur Merchant Code add kar diya gaya hai
+        const upiConfig = { pa: 'BHARATPE.8G0X1I3S0S91667@fbpe', pn: 'Colaba Store', mc: '5311', cu: 'INR' };
         let orderData = {};
 
         window.initiateCheckout = function() {
@@ -481,7 +482,8 @@
             const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
             localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
 
-            let params = `pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
+            // CHANGED: Link generation me Merchant Code (mc) parameter update kiya gaya hai
+            let params = `pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&mc=${upiConfig.mc}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
             let deepLink = `upi://pay?${params}`; 
             if (appId === 'gpay') deepLink = `tez://upi/pay?${params}`;
             else if (appId === 'phonepe') deepLink = `phonepe://pay?${params}`;
