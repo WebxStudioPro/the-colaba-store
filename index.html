@@ -103,15 +103,7 @@
         .upi-details { margin-top: 25px; display: block; animation: fadeIn 0.4s; }
         .upi-intent-box { background: var(--bg-deep); border: 1px solid rgba(203, 161, 85, 0.2); border-radius: 16px; padding: 25px 20px; text-align: center; }
         .intent-msg { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px; }
-        .intent-sub { font-size: 0.9rem; color: var(--text-gold-mute); margin-bottom: 20px; }
-        .upi-app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .upi-app-btn { background: rgba(17, 22, 32, 0.6); border: 1px solid rgba(203, 161, 85, 0.3); color: var(--text-ivory); padding: 14px 10px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; font-family: inherit; }
-        .upi-app-btn:active { transform: scale(0.96); border-color: var(--gold-rich); background: rgba(203, 161, 85, 0.15); }
-        .app-icon { font-size: 1.2rem; }
-        .payment-confirm-screen { display: none; text-align: center; padding: 20px 0; background: rgba(203, 161, 85, 0.05); border-radius: 16px; border: 1px dashed var(--gold-rich); }
-        .payment-confirm-screen.active { display: block; }
-        .spinner { width: 40px; height: 40px; border: 4px solid rgba(203, 161, 85, 0.3); border-top: 4px solid var(--gold-rich); border-radius: 50%; margin: 0 auto 15px auto; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
         .order-summary { background: var(--bg-deep); border-radius: 16px; padding: 20px; margin-top: 25px; border: 1px solid rgba(203, 161, 85, 0.2); }
         .summary-title { font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: var(--gold-light); text-transform: uppercase; }
         .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; border-bottom: 1px dashed rgba(203, 161, 85, 0.3); color: var(--text-ivory); }
@@ -213,30 +205,34 @@
                             <input type="radio" class="payment-radio" name="payment" id="upiRadio" value="upi" checked>
                             <div class="payment-icon">⚡</div>
                             <div>
-                                <div class="payment-title">Online Payment</div>
-                                <div class="payment-desc">GPay, PhonePe, Paytm, etc.</div>
+                                <div class="payment-title">Pay via QR Code</div>
+                                <div class="payment-desc">Scan & Pay using any UPI app</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="upi-details" id="upiDetails">
-                        <div id="upiInitialState" class="upi-intent-box">
-                            <div class="intent-msg">Pay <span id="intentAmountDisplay" style="color:var(--gold-light);">₹0</span> securely</div>
-                            <div class="intent-sub">Select your preferred app to complete payment</div>
-                            <div class="upi-app-grid">
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('gpay')"><span class="app-icon" style="color:#4285F4;">G</span> GPay</button>
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('phonepe')"><span class="app-icon" style="color:#5f259f;">पे</span> PhonePe</button>
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('paytm')"><span class="app-icon" style="color:#00B9F1;">P</span> Paytm</button>
-                                <button type="button" class="upi-app-btn" onclick="payWithUPIApp('generic')"><span class="app-icon">⚡</span> Other Apps</button>
+                        <div class="upi-intent-box" style="padding: 20px 15px;">
+                            <div class="intent-msg">Pay <span id="intentAmountDisplay" style="color:var(--gold-light);">₹0</span></div>
+                            
+                            <div style="background: white; padding: 10px; border-radius: 12px; display: inline-block; margin: 15px 0;">
+                                <img src="qr.jpg" alt="Scan QR Code" style="width: 180px; height: 180px; object-fit: contain;">
                             </div>
-                        </div>
-                        <div id="upiConfirmState" class="payment-confirm-screen">
-                            <div class="spinner"></div>
-                            <div style="font-weight:bold; color:var(--gold-light); margin-bottom:10px;">Waiting for Payment...</div>
-                            <div style="font-size:0.9rem; color:var(--text-ivory); margin-bottom:20px;">Complete the payment in your UPI app. Once paid, click "Yes" below.</div>
-                            <div style="display:flex; gap:10px;">
-                                <button type="button" class="btn-back" onclick="resetUPIFlow()">Cancel</button>
-                                <button type="button" class="btn-pay-intent" onclick="completeUPIPayment()">Yes, I Paid</button>
+                            
+                            <div style="font-size: 0.85rem; color: var(--text-gold-mute); line-height: 1.5; margin-bottom: 20px;">
+                                1. Take a screenshot of this QR<br>
+                                2. Open GPay / PhonePe / Paytm<br>
+                                3. Scan & Pay the exact amount
+                            </div>
+
+                            <div class="form-group" style="text-align: left;">
+                                <label class="form-label" style="color:var(--gold-light);">Enter UTR / Ref. Number *</label>
+                                <input type="tel" class="form-input" id="cUtr" placeholder="Enter 12-digit UPI Ref Number" maxlength="12">
+                            </div>
+                            
+                            <div class="form-group" style="text-align: left;">
+                                <label class="form-label" style="color:var(--gold-light);">Upload Payment Screenshot *</label>
+                                <input type="file" class="form-input" id="cScreenshot" accept="image/*" style="padding:10px; background:rgba(203,161,85,0.1); border:1px dashed var(--gold-rich);">
                             </div>
                         </div>
                     </div>
@@ -256,7 +252,7 @@
             </div>
             <div class="checkout-footer" id="footerStep2" style="display:none;">
                 <button type="button" class="btn-back" onclick="goToStep(1)">Back</button>
-                <div style="flex: 1.5;"></div> 
+                <button type="button" class="btn-next" id="finalSubmitBtn" onclick="submitFinalOrder()">Place Order ✅</button>
             </div>
         </div>
     </div>
@@ -265,17 +261,18 @@
         <div class="success-content">
             <span class="success-icon">👑</span>
             <h2 class="success-title">Order Placed!</h2>
-            <p style="color:var(--text-ivory); margin-bottom:20px;">Your colaba order is confirmed. Details sent via WhatsApp.</p>
+            <p style="color:var(--text-ivory); margin-bottom:20px;">Your colaba order is confirmed and securely sent to our system.</p>
             <div class="order-id">Order ID: <span id="orderIdTag"></span></div>
             <button class="btn-next" onclick="closeSuccessModal()">Continue Shopping</button>
         </div>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwBXxw_RhA9crHbxy2JbF8GiBivt82pgqpIN2sO1EkCU0WuKVw51mGnB9-g7ZcIQwnP/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwAsdtsRqLrdrRJuMu0n_vSogSN1oaiugsIK6UhMnSO1IpswNYjYkGvBx4MkmIqDpXJ/exec';
         
         let allProducts = [];
         window.cart = {}; 
+        let orderData = {};
         const myPhone = "917028808916";
 
         window.onload = function() {
@@ -289,12 +286,27 @@
             .then(data => {
                 grid.innerHTML = "";
                 if (data && data.length > 0) {
-                    allProducts = data.reverse();
+                    allProducts = data.map(item => {
+                        let safeImgUrl = item.Image || item.image || '';
+                        if(safeImgUrl && safeImgUrl.includes("id=")) {
+                            let fileId = safeImgUrl.split("id=")[1].split("&")[0];
+                            safeImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w600";
+                        }
+                        return {
+                            id: item.ID || item.id,
+                            name: item.Name || item.name,
+                            price: item.Price || item.price,
+                            originalPrice: item.OldPrice || item.oldPrice || item.originalPrice,
+                            category: item.Category || item.category,
+                            image: safeImgUrl
+                        };
+                    }).reverse();
+                    
                     window.allProducts = allProducts;
                     renderProducts(allProducts);
-                    if(localStorage.getItem('colaba_payment_pending')) {
-                        restoreSession();
-                    }
+                    
+                    // 🪄 NAYA JADOO: Auto-Resume session checking
+                    restoreCheckoutSession();
                 } else {
                     grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Collection is empty.</p>";
                 }
@@ -302,6 +314,38 @@
             .catch(e => {
                 grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Failed to load collection.</p>";
             });
+        }
+
+        // 🪄 NAYA JADOO: Data Restore karne wala function
+        function restoreCheckoutSession() {
+            try {
+                const savedData = localStorage.getItem('colaba_checkout_session');
+                if (savedData) {
+                    const parsed = JSON.parse(savedData);
+                    if (parsed.cart && Object.keys(parsed.cart).length > 0) {
+                        window.cart = parsed.cart;
+                        updateTotal();
+                        
+                        if (parsed.address) {
+                            document.getElementById('fullName').value = parsed.address.name || '';
+                            document.getElementById('mobileNumber').value = parsed.address.mobile || '';
+                            document.getElementById('pincode').value = parsed.address.pincode || '';
+                            document.getElementById('city').value = parsed.address.city || '';
+                            document.getElementById('fullAddress').value = parsed.address.fullAddress || '';
+                            orderData.address = parsed.address;
+                        }
+                        
+                        // Seedha Step 2 par wapas le jao (Bina kisi click ke)
+                        initiateCheckout();
+                        document.getElementById('footerStep1').style.display = 'none'; 
+                        document.getElementById('footerStep2').style.display = 'flex';
+                        document.getElementById('step1').classList.remove('active'); 
+                        document.getElementById('step2').classList.add('active');
+                    }
+                }
+            } catch (e) {
+                console.log("Session restore error", e);
+            }
         }
 
         window.renderProducts = function(list) {
@@ -437,10 +481,6 @@
             let v = e.target.value.toLowerCase();
             renderProducts(allProducts.filter(x => x.name.toLowerCase().includes(v)));
         });
-        
-        // CHANGED: Yahan BharatPe UPI ID aur Merchant Code add kar diya gaya hai
-        const upiConfig = { pa: 'BHARATPE.8G0X1I3S0S91667@fbpe', pn: 'Colaba Store', mc: '5311', cu: 'INR' };
-        let orderData = {};
 
         window.initiateCheckout = function() {
             closeCart();
@@ -449,24 +489,40 @@
             document.getElementById('summaryDelivery').innerText = `₹${details.deliveryFee}`;
             document.getElementById('summaryTotal').innerText = `₹${details.grandTotal}`;
             document.getElementById('intentAmountDisplay').innerText = `₹${details.grandTotal}`;
+            
             document.getElementById('checkoutModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
             document.getElementById('step1').classList.add('active'); document.getElementById('step2').classList.remove('active');
             document.getElementById('footerStep1').style.display = 'flex'; document.getElementById('footerStep2').style.display = 'none';
-            document.getElementById('upiInitialState').style.display = 'block'; document.getElementById('upiConfirmState').classList.remove('active');
         }
 
         window.closeCheckoutModal = function() { document.getElementById('checkoutModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
         window.goToStep = function(step) {
-            const form = document.getElementById('checkoutForm');
             if (step === 2) {
-                if (!form.reportValidity()) return;
+                const name = document.getElementById('fullName').value.trim();
+                const mobile = document.getElementById('mobileNumber').value.trim();
+                const pincode = document.getElementById('pincode').value.trim();
+                const city = document.getElementById('city').value.trim();
+                const address = document.getElementById('fullAddress').value.trim();
+
+                if (!name || !mobile || !pincode || !city || !address) {
+                    alert("Please fill all delivery details correctly!");
+                    return;
+                }
+                
                 orderData.address = {
-                    name: document.getElementById('fullName').value.trim(), mobile: document.getElementById('mobileNumber').value.trim(),
-                    pincode: document.getElementById('pincode').value.trim(), city: document.getElementById('city').value.trim(),
-                    fullAddress: document.getElementById('fullAddress').value.trim()
+                    name: name, mobile: mobile,
+                    pincode: pincode, city: city,
+                    fullAddress: address
                 };
+                
+                // 🪄 NAYA JADOO: Save Data into Phone Memory
+                localStorage.setItem('colaba_checkout_session', JSON.stringify({
+                    cart: window.cart,
+                    address: orderData.address
+                }));
+
                 document.getElementById('footerStep1').style.display = 'none'; document.getElementById('footerStep2').style.display = 'flex';
             } else {
                 document.getElementById('footerStep1').style.display = 'flex'; document.getElementById('footerStep2').style.display = 'none';
@@ -475,64 +531,95 @@
             document.getElementById('step' + step).classList.add('active');
         }
 
-        window.payWithUPIApp = function(appId) {
-            const details = getCartDetails();
-            const totalAmount = details.grandTotal;
-            const trxnId = 'CS' + Date.now();
-            const tempState = { cart: window.cart, address: orderData.address, paymentStarted: true };
-            localStorage.setItem('colaba_payment_pending', JSON.stringify(tempState));
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 500;
+                    let scaleSize = MAX_WIDTH / img.width;
+                    if(scaleSize > 1) scaleSize = 1; 
 
-            // CHANGED: Link generation me Merchant Code (mc) parameter update kiya gaya hai
-            let params = `pa=${upiConfig.pa}&pn=${encodeURIComponent(upiConfig.pn)}&mc=${upiConfig.mc}&am=${totalAmount}&cu=${upiConfig.cu}&tn=${trxnId}`;
-            let deepLink = `upi://pay?${params}`; 
-            if (appId === 'gpay') deepLink = `tez://upi/pay?${params}`;
-            else if (appId === 'phonepe') deepLink = `phonepe://pay?${params}`;
-            else if (appId === 'paytm') deepLink = `paytmmp://pay?${params}`;
+                    canvas.width = img.width * scaleSize;
+                    canvas.height = img.height * scaleSize;
 
-            window.location.href = deepLink;
-            document.getElementById('upiInitialState').style.display = 'none'; document.getElementById('upiConfirmState').classList.add('active');
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    
+                    const base64Data = canvas.toDataURL('image/jpeg', 0.6).split(',')[1];
+                    callback(base64Data, 'image/jpeg');
+                }
+            }
         }
 
-        window.resetUPIFlow = function() { localStorage.removeItem('colaba_payment_pending'); document.getElementById('upiInitialState').style.display = 'block'; document.getElementById('upiConfirmState').classList.remove('active'); }
+        window.submitFinalOrder = function() {
+            const utr = document.getElementById('cUtr').value.trim();
+            const fileInput = document.getElementById('cScreenshot');
+            const file = fileInput.files[0];
 
-        window.completeUPIPayment = function() { localStorage.removeItem('colaba_payment_pending'); finalizeOrder(); }
+            if(utr.length < 5) { alert("Please enter valid UTR / Ref number."); return; }
+            if(!file) { alert("Please upload the payment screenshot."); return; }
 
-        window.finalizeOrder = function() {
+            const btn = document.getElementById('finalSubmitBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Processing Order... ⏳";
+            btn.disabled = true;
+
             const orderId = 'CS' + Date.now().toString().slice(-6);
             document.getElementById('orderIdTag').innerText = orderId;
             const addr = orderData.address;
             const details = getCartDetails();
-            
-            let message = `*👑 NEW COLABA ORDER - Colaba Store*\\n━━━━━━━━━━━━━━━━━━━━\\n🆔 *Order ID:* ${orderId}\\n\\n🛒 *ORDER DETAILS:*\\n`;
+
+            let itemsText = "";
             Object.keys(window.cart).forEach(k => {
                 let p = window.allProducts.find(x => x.id == k);
-                if(p) message += `▪️ ${p.name} (x${window.cart[k]}) - ₹${p.price * window.cart[k]}\\n`;
+                if(p) itemsText += `[IMG:${p.image}] ${p.name} (x${window.cart[k]}) : ₹${p.price * window.cart[k]}\n`;
             });
-            message += `\\n📦 *Items Total: ₹${details.itemsTotal}*`;
-            message += `\\n🚚 *Delivery Fee: ₹${details.deliveryFee}*`;
-            message += `\\n💰 *GRAND TOTAL: ₹${details.grandTotal}*\\n\\n💳 *PAYMENT STATUS:*\\n✅ *PAID VIA UPI APP*\\n⚠️ *Please check bank for ₹${details.grandTotal}*\\n\\n━━━━━━━━━━━━━━━━━━━━\\n📍 *DELIVERY ADDRESS:*\\n👤 ${addr.name}\\n📱 ${addr.mobile}\\n📍 ${addr.fullAddress}\\n🏙️ ${addr.city} - ${addr.pincode}\\n`;
-            
-            setTimeout(() => { window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(message)}`, '_blank'); }, 500);
-            closeCheckoutModal(); document.getElementById('successModal').style.display = 'flex';
+
+            compressImage(file, function(base64Data, mimeType) {
+                const payload = {
+                    action: 'placeOrder',
+                    orderId: orderId,
+                    name: addr.name,
+                    mobile: addr.mobile,
+                    pincode: addr.pincode,
+                    city: addr.city,
+                    address: addr.fullAddress,
+                    items: itemsText,
+                    itemsTotal: details.itemsTotal,
+                    deliveryFee: details.deliveryFee,
+                    grandTotal: details.grandTotal,
+                    utr: utr,
+                    screenshotBase64: base64Data,
+                    screenshotMimeType: mimeType
+                };
+
+                fetch(scriptURL, { method: 'POST', body: JSON.stringify(payload) })
+                .then(r => r.json())
+                .then(res => {
+                    if(res.status === 'success') {
+                        // 🪄 NAYA JADOO: Order successful hone par memory clear kar do
+                        localStorage.removeItem('colaba_checkout_session');
+                        
+                        closeCheckoutModal();
+                        document.getElementById('successModal').style.display = 'flex';
+                    } else {
+                        alert("🚨 BACKEND ERROR: " + res.message); 
+                    }
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }).catch((error) => {
+                    alert("🚨 NETWORK ERROR: " + error.message); 
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                });
+            });
         }
 
         window.closeSuccessModal = function() { document.getElementById('successModal').style.display = 'none'; window.cart = {}; updateTotal(); renderProducts(window.allProducts); }
-
-        function restoreSession() {
-            try {
-                const data = JSON.parse(localStorage.getItem('colaba_payment_pending'));
-                if (data.paymentStarted && data.cart) {
-                    window.cart = data.cart; updateTotal(); renderProducts(window.allProducts);
-                    if (data.address) {
-                        document.getElementById('fullName').value = data.address.name || ''; document.getElementById('mobileNumber').value = data.address.mobile || '';
-                        document.getElementById('pincode').value = data.address.pincode || ''; document.getElementById('city').value = data.address.city || '';
-                        document.getElementById('fullAddress').value = data.address.fullAddress || ''; orderData.address = data.address;
-                    }
-                    initiateCheckout(); goToStep(2);
-                    document.getElementById('upiInitialState').style.display = 'none'; document.getElementById('upiConfirmState').classList.add('active');
-                }
-            } catch (e) { localStorage.removeItem('colaba_payment_pending'); }
-        }
     </script>
 </body>
 </html>
