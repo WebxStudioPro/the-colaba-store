@@ -224,11 +224,6 @@
                                 2. Open GPay / PhonePe / Paytm<br>
                                 3. Scan & Pay the exact amount
                             </div>
-
-                            <div class="form-group" style="text-align: left;">
-                                <label class="form-label" style="color:var(--gold-light);">Enter UTR / Ref. Number *</label>
-                                <input type="tel" class="form-input" id="cUtr" placeholder="Enter 12-digit UPI Ref Number" maxlength="12">
-                            </div>
                             
                             <div class="form-group" style="text-align: left;">
                                 <label class="form-label" style="color:var(--gold-light);">Upload Payment Screenshot *</label>
@@ -305,7 +300,6 @@
                     window.allProducts = allProducts;
                     renderProducts(allProducts);
                     
-                    // 🪄 NAYA JADOO: Auto-Resume session checking
                     restoreCheckoutSession();
                 } else {
                     grid.innerHTML = "<p style='text-align:center; width:200%; color:var(--text-gold-mute);'>Collection is empty.</p>";
@@ -316,7 +310,6 @@
             });
         }
 
-        // 🪄 NAYA JADOO: Data Restore karne wala function
         function restoreCheckoutSession() {
             try {
                 const savedData = localStorage.getItem('colaba_checkout_session');
@@ -335,7 +328,6 @@
                             orderData.address = parsed.address;
                         }
                         
-                        // Seedha Step 2 par wapas le jao (Bina kisi click ke)
                         initiateCheckout();
                         document.getElementById('footerStep1').style.display = 'none'; 
                         document.getElementById('footerStep2').style.display = 'flex';
@@ -517,7 +509,6 @@
                     fullAddress: address
                 };
                 
-                // 🪄 NAYA JADOO: Save Data into Phone Memory
                 localStorage.setItem('colaba_checkout_session', JSON.stringify({
                     cart: window.cart,
                     address: orderData.address
@@ -556,11 +547,9 @@
         }
 
         window.submitFinalOrder = function() {
-            const utr = document.getElementById('cUtr').value.trim();
             const fileInput = document.getElementById('cScreenshot');
             const file = fileInput.files[0];
 
-            if(utr.length < 5) { alert("Please enter valid UTR / Ref number."); return; }
             if(!file) { alert("Please upload the payment screenshot."); return; }
 
             const btn = document.getElementById('finalSubmitBtn');
@@ -572,6 +561,7 @@
             document.getElementById('orderIdTag').innerText = orderId;
             const addr = orderData.address;
             const details = getCartDetails();
+            const utrText = "Screenshot Uploaded"; // Backend me error rokne ke liye
 
             let itemsText = "";
             Object.keys(window.cart).forEach(k => {
@@ -592,7 +582,7 @@
                     itemsTotal: details.itemsTotal,
                     deliveryFee: details.deliveryFee,
                     grandTotal: details.grandTotal,
-                    utr: utr,
+                    utr: utrText,
                     screenshotBase64: base64Data,
                     screenshotMimeType: mimeType
                 };
@@ -601,7 +591,6 @@
                 .then(r => r.json())
                 .then(res => {
                     if(res.status === 'success') {
-                        // 🪄 NAYA JADOO: Order successful hone par memory clear kar do
                         localStorage.removeItem('colaba_checkout_session');
                         
                         closeCheckoutModal();
